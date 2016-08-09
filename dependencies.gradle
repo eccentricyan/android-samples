@@ -11,6 +11,8 @@ ext {
             retrofit: "com.squareup.retrofit2:retrofit:$retrofitVersion",
             retrofitConverterGson: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
             retrofitAdapterRxJava: "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion",
+            parcelerApi: "org.parceler:parceler-api:1.1.5",
+            parceler: "org.parceler:parceler:1.1.5",
             picasso: 'com.squareup.picasso:picasso:2.5.2',
             circleImageView: 'de.hdodenhof:circleimageview:1.3.0',
 

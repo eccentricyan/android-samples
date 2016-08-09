@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    Map<String, String> d = rootProject.ext.dependencies
-    compile d.appCompat
-    testCompile d.jUnit
+    Map<String, String> dependencies = rootProject.ext.dependencies
+    compile dependencies.appCompat
+    testCompile dependencies.jUnit
 }
