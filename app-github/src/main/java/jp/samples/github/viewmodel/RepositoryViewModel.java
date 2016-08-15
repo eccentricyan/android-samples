@@ -10,6 +10,9 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import javax.inject.Inject;
+
+import dagger.Lazy;
 import jp.samples.github.App;
 import jp.samples.github.GithubService;
 import jp.samples.github.R;
@@ -17,6 +20,7 @@ import jp.samples.github.SubscriptionUtil;
 import jp.samples.github.model.Repository;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class RepositoryViewModel implements ViewModel {
 
@@ -30,10 +34,11 @@ public class RepositoryViewModel implements ViewModel {
                 .into(view);
     }
 
-    private Repository repository;
     private Context context;
-    private Subscription subscription;
+    private Repository repository;
+    private GithubService githubService;
 
+    private Subscription subscription;
     public ObservableField<String> ownerName;
     public ObservableField<String> ownerEmail;
     public ObservableField<String> ownerLocation;
@@ -41,8 +46,9 @@ public class RepositoryViewModel implements ViewModel {
     public ObservableInt ownerLocationVisibility;
     public ObservableInt ownerLayoutVisibility;
 
-    public RepositoryViewModel(Context context, Repository repository) {
+    public RepositoryViewModel(Context context, GithubService githubService, Repository repository) {
         this.context = context;
+        this.githubService = githubService;
         this.repository = repository;
 
         this.ownerName = new ObservableField<>();
@@ -57,7 +63,6 @@ public class RepositoryViewModel implements ViewModel {
 
     @Override
     public void onDestroy() {
-        this.context = null;
         SubscriptionUtil.unsubscribe(subscription);
     }
 
@@ -90,11 +95,9 @@ public class RepositoryViewModel implements ViewModel {
     }
 
     private void loadFullUser(String url) {
-        App app = App.get(context);
-        GithubService githubService = app.getGithubService();
         subscription = githubService.userFromUrl(url)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(app.defaultSubscribeScheduler())
                 .subscribe(user -> {
                     Log.i(TAG, "Full user data loaded " + user);
                     ownerName.set(user.name);

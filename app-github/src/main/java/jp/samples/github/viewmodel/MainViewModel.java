@@ -13,22 +13,29 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import jp.samples.github.App;
+import javax.inject.Named;
+
 import jp.samples.github.GithubService;
 import jp.samples.github.GithubSubscriber;
 import jp.samples.github.R;
 import jp.samples.github.SubscriptionUtil;
 import jp.samples.github.model.Repository;
+import rx.Scheduler;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainViewModel implements ViewModel {
+
+    private static final String TAG = MainViewModel.class.getSimpleName();
 
     public interface ViewModelListener {
         void onRepositoriesChanged(List<Repository> repositories);
     }
 
-    private static final String TAG = MainViewModel.class.getSimpleName();
+    private Context context;
+    private GithubService githubService;
+    private ViewModelListener viewModelListener;
 
     public ObservableInt searchButtonVisibility;
     public ObservableInt progressVisibility;
@@ -36,15 +43,16 @@ public class MainViewModel implements ViewModel {
     public ObservableInt infoMessageVisibility;
     public ObservableField<String> infoMessage;
 
-    protected Context context;
-    protected Subscription subscription;
-    private ViewModelListener viewModelListener;
+    private Subscription subscription;
     private List<Repository> repositories;
     private String editTextUsernameValue;
 
-    public MainViewModel(Context context, ViewModelListener viewModelListener) {
+    public MainViewModel(Context context, GithubService githubService, ViewModelListener viewModelListener) {
+
         this.context = context;
+        this.githubService = githubService;
         this.viewModelListener = viewModelListener;
+
         this.progressVisibility = new ObservableInt(View.INVISIBLE);
         this.recyclerViewVisibility = new ObservableInt(View.INVISIBLE);
         this.searchButtonVisibility = new ObservableInt(View.GONE);
@@ -54,10 +62,7 @@ public class MainViewModel implements ViewModel {
 
     @Override
     public void onDestroy() {
-        context = null;
         SubscriptionUtil.unsubscribe(subscription);
-        subscription = null;
-        viewModelListener = null;
     }
 
     public void onClickSearch(View view) {
@@ -99,11 +104,9 @@ public class MainViewModel implements ViewModel {
 
         SubscriptionUtil.unsubscribe(subscription);
 
-        App app = App.get(context);
-        GithubService githubService = app.getGithubService();
         subscription = githubService.publicRepositories(username)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(app.defaultSubscribeScheduler())
                 .doAfterTerminate(() -> progressVisibility.set(View.INVISIBLE))
                 .subscribe(new GithubSubscriber<List<Repository>>() {
                     @Override

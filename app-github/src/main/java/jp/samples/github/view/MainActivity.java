@@ -8,11 +8,22 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.inputmethod.InputMethodManager;
 
+import javax.inject.Inject;
+
+import dagger.Lazy;
+import jp.samples.github.App;
+import jp.samples.github.GithubService;
 import jp.samples.github.R;
 import jp.samples.github.databinding.MainActivityBinding;
 import jp.samples.github.viewmodel.MainViewModel;
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
+
+    @Inject
+    Lazy<GithubService> githubService;
 
     private MainActivityBinding binding;
     private MainViewModel viewModel;
@@ -20,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        App.getAppComponent(this).inject(this);
+
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         MainViewModel.ViewModelListener viewModelListener = repositories -> {
             MainAdapter adapter = (MainAdapter) binding.reposRecyclerView.getAdapter();
@@ -27,8 +41,9 @@ public class MainActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             hideSoftKeybord();
         };
-        viewModel = new MainViewModel(this, viewModelListener);
+        viewModel = new MainViewModel(this, githubService.get(), viewModelListener);
         binding.setViewModel(viewModel);
+
         setSupportActionBar(binding.toolbar);
         setupRecyclerView(binding.reposRecyclerView);
     }

@@ -40,9 +40,10 @@ dependencies {
     compile dependencies.picasso
     compile dependencies.rxAndroid
     compile dependencies.circleImageView
-
-    compile dependencies.parcelerApi
     apt dependencies.parceler
+    compile dependencies.parcelerApi
+    apt dependencies.daggerCompiler
+    compile dependencies.dagger
 
     testCompile dependencies.jUnit
     testCompile dependencies.mockito

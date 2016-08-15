@@ -16,5 +16,41 @@
 #   public *;
 #}
 
-# retrolambda
+# https://github.com/krschultz/android-proguard-snippets
+
+-keepattributes Signature
+-keepattributes Exceptions
+-keepattributes *Annotation*
+
+### GSON ===========================================================================================
+-keep class sun.misc.Unsafe { *; }
+-keep class jp.samples.github.model.** { *; }
+
+### OkHttp =========================================================================================
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
+-dontwarn okhttp3.**
+
+### Retrofit =======================================================================================
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+
+### RxJava =========================================================================================
+-keep class rx.schedulers.Schedulers {
+    public static <methods>;
+}
+-keep class rx.schedulers.ImmediateScheduler {
+    public <methods>;
+}
+-keep class rx.schedulers.TestScheduler {
+    public <methods>;
+}
+-keep class rx.schedulers.Schedulers {
+    public static ** test();
+}
+
+### Retrolambda ====================================================================================
 -dontwarn java.lang.invoke.*

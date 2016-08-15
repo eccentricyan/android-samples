@@ -9,6 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 
 import org.parceler.Parcels;
 
+import javax.inject.Inject;
+
+import dagger.Lazy;
+import jp.samples.github.App;
+import jp.samples.github.GithubService;
 import jp.samples.github.R;
 import jp.samples.github.databinding.RepositoryActivityBinding;
 import jp.samples.github.model.Repository;
@@ -18,9 +23,11 @@ public class RepositoryActivity extends AppCompatActivity {
 
     private static final String EXTRA_REPOSITORY = "EXTRA_REPOSITORY";
 
+    @Inject
+    Lazy<GithubService> githubService;
+
     private RepositoryActivityBinding binding;
     private RepositoryViewModel viewModel;
-
 
     public static Intent newIntent(Context context, Repository repository) {
         Intent intent = new Intent(context, RepositoryActivity.class);
@@ -32,17 +39,18 @@ public class RepositoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        App.getAppComponent(this).inject(this);
+
         binding = DataBindingUtil.setContentView(this, R.layout.repository_activity);
+        Repository repository = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_REPOSITORY));
+        viewModel = new RepositoryViewModel(this, githubService.get(), repository);
+        binding.setViewModel(viewModel);
+
         setSupportActionBar(binding.toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-        Repository repository = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_REPOSITORY));
-        viewModel = new RepositoryViewModel(this, repository);
-        binding.setViewModel(viewModel);
-
         setTitle(repository.name);
     }
 
