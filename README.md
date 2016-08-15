@@ -1,4 +1,5 @@
 # android-samples
+Android sample apps.
 
 ## app-github
 ### Libraries used
