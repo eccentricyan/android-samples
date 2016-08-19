@@ -1,4 +1,4 @@
-package jp.samples.github.viewmodel;
+package jp.samples.github.view;
 
 import android.app.Activity;
 import android.app.Instrumentation;

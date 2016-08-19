@@ -1,4 +1,4 @@
-package jp.samples.github.viewmodel;
+package jp.samples.github.view;
 
 
 import android.support.test.runner.AndroidJUnit4;
@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import java.util.Collections;
 
 import jp.samples.github.R;
-import jp.samples.github.view.MainActivity;
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
