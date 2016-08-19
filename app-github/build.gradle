@@ -46,6 +46,13 @@ dependencies {
     compile dependencies.dagger
 
     testCompile dependencies.jUnit
+    testCompile dependencies.hamcrest
     testCompile dependencies.mockito
     testCompile dependencies.robolectric
+    androidTestCompile dependencies.supportTestRunner
+    androidTestCompile dependencies.supportAnnotations
+    androidTestCompile dependencies.espresso
+    androidTestCompile dependencies.retrofitMock
+    androidTestCompile dependencies.assertjAndroid
+
 }

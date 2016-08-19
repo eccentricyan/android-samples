@@ -2,9 +2,11 @@
 Android sample apps.
 
 ## app-github
+GitHub APIを使用したMVVMのサンプルです。
 ### Libraries used
-* Data Binding (MVVM)
+* Data Binding
 * Dagger2
 * Retrofit2
 * RxAndroid
 * Parceler
+* Espresso2
