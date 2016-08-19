@@ -13,7 +13,7 @@ import javax.inject.Inject;
 
 import dagger.Lazy;
 import jp.samples.github.App;
-import jp.samples.github.GithubService;
+import jp.samples.github.repository.GithubApiService;
 import jp.samples.github.R;
 import jp.samples.github.databinding.RepositoryActivityBinding;
 import jp.samples.github.model.Repository;
@@ -24,9 +24,8 @@ public class RepositoryActivity extends AppCompatActivity {
     private static final String EXTRA_REPOSITORY = "EXTRA_REPOSITORY";
 
     @Inject
-    Lazy<GithubService> githubService;
+    Lazy<GithubApiService> githubService;
 
-    private RepositoryActivityBinding binding;
     private RepositoryViewModel viewModel;
 
     public static Intent newIntent(Context context, Repository repository) {
@@ -41,7 +40,7 @@ public class RepositoryActivity extends AppCompatActivity {
 
         App.getAppComponent(this).inject(this);
 
-        binding = DataBindingUtil.setContentView(this, R.layout.repository_activity);
+        RepositoryActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.repository_activity);
         Repository repository = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_REPOSITORY));
         viewModel = new RepositoryViewModel(this, githubService.get(), repository);
         binding.setViewModel(viewModel);
@@ -55,8 +54,8 @@ public class RepositoryActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        viewModel.onDestroy();
+    protected void onPause() {
+        super.onPause();
+        viewModel.onPause();
     }
 }

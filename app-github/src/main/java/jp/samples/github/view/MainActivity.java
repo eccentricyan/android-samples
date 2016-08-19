@@ -12,18 +12,15 @@ import javax.inject.Inject;
 
 import dagger.Lazy;
 import jp.samples.github.App;
-import jp.samples.github.GithubService;
+import jp.samples.github.repository.GithubApiService;
 import jp.samples.github.R;
 import jp.samples.github.databinding.MainActivityBinding;
 import jp.samples.github.viewmodel.MainViewModel;
-import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
 
     @Inject
-    Lazy<GithubService> githubService;
+    Lazy<GithubApiService> githubService;
 
     private MainActivityBinding binding;
     private MainViewModel viewModel;
@@ -49,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        viewModel.onDestroy();
+    protected void onPause() {
+        super.onPause();
+        viewModel.onPause();
     }
 
     private void setupRecyclerView(RecyclerView recyclerView) {

@@ -2,6 +2,7 @@ package jp.samples.github;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.annotation.VisibleForTesting;
 
 import jp.samples.github.di.AppComponent;
 import jp.samples.github.di.DaggerAppComponent;
@@ -22,6 +23,11 @@ public class App extends Application {
 
     public static AppComponent getAppComponent(Context context) {
         return get(context).component;
+    }
+
+    @VisibleForTesting
+    public void setAppComponent(AppComponent appComponent) {
+        this.component = appComponent;
     }
 
 }

@@ -24,7 +24,7 @@ public class MainItemViewModel extends BaseObservable implements ViewModel {
     }
 
     @Override
-    public void onDestroy() {
+    public void onPause() {
         // NOP
     }
 

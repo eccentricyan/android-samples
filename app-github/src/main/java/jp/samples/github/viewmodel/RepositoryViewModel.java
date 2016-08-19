@@ -10,13 +10,8 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-import javax.inject.Inject;
-
-import dagger.Lazy;
-import jp.samples.github.App;
-import jp.samples.github.GithubService;
+import jp.samples.github.repository.GithubApiService;
 import jp.samples.github.R;
-import jp.samples.github.SubscriptionUtil;
 import jp.samples.github.model.Repository;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -36,7 +31,7 @@ public class RepositoryViewModel implements ViewModel {
 
     private Context context;
     private Repository repository;
-    private GithubService githubService;
+    private GithubApiService githubService;
 
     private Subscription subscription;
     public ObservableField<String> ownerName;
@@ -46,7 +41,7 @@ public class RepositoryViewModel implements ViewModel {
     public ObservableInt ownerLocationVisibility;
     public ObservableInt ownerLayoutVisibility;
 
-    public RepositoryViewModel(Context context, GithubService githubService, Repository repository) {
+    public RepositoryViewModel(Context context, GithubApiService githubService, Repository repository) {
         this.context = context;
         this.githubService = githubService;
         this.repository = repository;
@@ -62,8 +57,10 @@ public class RepositoryViewModel implements ViewModel {
     }
 
     @Override
-    public void onDestroy() {
-        SubscriptionUtil.unsubscribe(subscription);
+    public void onPause() {
+        if (subscription != null) {
+            subscription.unsubscribe();
+        }
     }
 
     public String getDescription() {

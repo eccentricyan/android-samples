@@ -13,14 +13,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import javax.inject.Named;
-
-import jp.samples.github.GithubService;
-import jp.samples.github.GithubSubscriber;
+import jp.samples.github.repository.GithubApiService;
+import jp.samples.github.repository.GithubApiSubscriber;
 import jp.samples.github.R;
-import jp.samples.github.SubscriptionUtil;
 import jp.samples.github.model.Repository;
-import rx.Scheduler;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -34,7 +30,7 @@ public class MainViewModel implements ViewModel {
     }
 
     private Context context;
-    private GithubService githubService;
+    private GithubApiService githubService;
     private ViewModelListener viewModelListener;
 
     public ObservableInt searchButtonVisibility;
@@ -47,22 +43,24 @@ public class MainViewModel implements ViewModel {
     private List<Repository> repositories;
     private String editTextUsernameValue;
 
-    public MainViewModel(Context context, GithubService githubService, ViewModelListener viewModelListener) {
+    public MainViewModel(Context context, GithubApiService githubService, ViewModelListener viewModelListener) {
 
         this.context = context;
         this.githubService = githubService;
         this.viewModelListener = viewModelListener;
 
+        this.searchButtonVisibility = new ObservableInt(View.GONE);
         this.progressVisibility = new ObservableInt(View.INVISIBLE);
         this.recyclerViewVisibility = new ObservableInt(View.INVISIBLE);
-        this.searchButtonVisibility = new ObservableInt(View.GONE);
         this.infoMessageVisibility = new ObservableInt(View.VISIBLE);
         this.infoMessage = new ObservableField<>(context.getString(R.string.default_info_message));
     }
 
     @Override
-    public void onDestroy() {
-        SubscriptionUtil.unsubscribe(subscription);
+    public void onPause() {
+        if (subscription != null) {
+            subscription.unsubscribe();
+        }
     }
 
     public void onClickSearch(View view) {
@@ -102,13 +100,21 @@ public class MainViewModel implements ViewModel {
         recyclerViewVisibility.set(View.INVISIBLE);
         infoMessageVisibility.set(View.INVISIBLE);
 
-        SubscriptionUtil.unsubscribe(subscription);
+        if (subscription != null) {
+            subscription.unsubscribe();
+        }
 
         subscription = githubService.publicRepositories(username)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doAfterTerminate(() -> progressVisibility.set(View.INVISIBLE))
-                .subscribe(new GithubSubscriber<List<Repository>>() {
+                .subscribe(new GithubApiSubscriber<List<Repository>>() {
+                    @Override
+                    public void onNext(List<Repository> repositories) {
+                        Log.i(TAG, "Repose loaded " + repositories);
+                        MainViewModel.this.repositories = repositories;
+                    }
+
                     @Override
                     public void onCompleted() {
                         if (viewModelListener != null) {
@@ -132,12 +138,6 @@ public class MainViewModel implements ViewModel {
                             infoMessage.set(context.getString(R.string.error_loading_repos));
                         }
                         infoMessageVisibility.set(View.VISIBLE);
-                    }
-
-                    @Override
-                    public void onNext(List<Repository> repositories) {
-                        Log.i(TAG, "Repose loaded " + repositories);
-                        MainViewModel.this.repositories = repositories;
                     }
                 });
     }

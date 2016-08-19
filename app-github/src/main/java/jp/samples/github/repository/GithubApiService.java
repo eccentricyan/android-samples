@@ -1,4 +1,4 @@
-package jp.samples.github;
+package jp.samples.github.repository;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Url;
 import rx.Observable;
 
-public interface GithubService {
+public interface GithubApiService {
 
     @GET("users/{username}/repos")
     Observable<List<Repository>> publicRepositories(@Path("username") String username);
