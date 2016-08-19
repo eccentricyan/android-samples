@@ -27,16 +27,11 @@ public abstract class ActivityTest<T extends Activity> {
 
     @Before
     public void setup() {
-        inject();
+        setupComponent();
         launchActivity();
     }
 
-    protected App getApplication() {
-        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-        return (App) instrumentation.getTargetContext().getApplicationContext();
-    }
-
-    protected void inject() {
+    private void setupComponent() {
         this.githubApiService = new TestGithubApiService();
         AppComponent component = DaggerAppComponent
                 .builder()
@@ -47,6 +42,11 @@ public abstract class ActivityTest<T extends Activity> {
 
     protected void launchActivity() {
         activityTestRule.launchActivity(new Intent());
+    }
+
+    protected App getApplication() {
+        Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
+        return (App) instrumentation.getTargetContext().getApplicationContext();
     }
 
 }
