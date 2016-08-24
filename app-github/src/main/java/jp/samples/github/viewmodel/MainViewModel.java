@@ -13,10 +13,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import jp.samples.github.repository.GithubApiService;
-import jp.samples.github.repository.GithubApiSubscriber;
 import jp.samples.github.R;
 import jp.samples.github.model.Repository;
+import jp.samples.github.repository.GithubApiService;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -39,9 +39,8 @@ public class MainViewModel implements ViewModel {
     public ObservableInt infoMessageVisibility;
     public ObservableField<String> infoMessage;
 
-    private Subscription subscription;
-    private List<Repository> repositories;
     private String editTextUsernameValue;
+    private Subscription subscription;
 
     public MainViewModel(Context context, GithubApiService githubService, ViewModelListener viewModelListener) {
 
@@ -108,37 +107,25 @@ public class MainViewModel implements ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doAfterTerminate(() -> progressVisibility.set(View.INVISIBLE))
-                .subscribe(new GithubApiSubscriber<List<Repository>>() {
-                    @Override
-                    public void onNext(List<Repository> repositories) {
-                        Log.i(TAG, "Repose loaded " + repositories);
-                        MainViewModel.this.repositories = repositories;
+                .subscribe(repositories -> {
+                    Log.i(TAG, "Repose loaded " + repositories);
+                    if (viewModelListener != null) {
+                        viewModelListener.onRepositoriesChanged(repositories);
                     }
-
-                    @Override
-                    public void onCompleted() {
-                        if (viewModelListener != null) {
-                            viewModelListener.onRepositoriesChanged(repositories);
-                        }
-
-                        if (repositories.isEmpty()) {
-                            infoMessage.set(context.getString(R.string.text_empty_repos));
-                            infoMessageVisibility.set(View.VISIBLE);
-                        } else {
-                            recyclerViewVisibility.set(View.VISIBLE);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e(TAG, "Error loading GitHub repos ", e);
-                        if (isHttp404(e)) {
-                            infoMessage.set(context.getString(R.string.error_username_not_found));
-                        } else {
-                            infoMessage.set(context.getString(R.string.error_loading_repos));
-                        }
+                    if (repositories.isEmpty()) {
+                        infoMessage.set(context.getString(R.string.text_empty_repos));
                         infoMessageVisibility.set(View.VISIBLE);
+                    } else {
+                        recyclerViewVisibility.set(View.VISIBLE);
                     }
+                }, e -> {
+                    Log.e(TAG, "Error loading GitHub repos ", e);
+                    if (e instanceof HttpException && ((HttpException) e).code() == 404) {
+                        infoMessage.set(context.getString(R.string.error_username_not_found));
+                    } else {
+                        infoMessage.set(context.getString(R.string.error_loading_repos));
+                    }
+                    infoMessageVisibility.set(View.VISIBLE);
                 });
     }
 
