@@ -9,6 +9,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import jp.samples.github.event.RxEventBus;
 import jp.samples.github.repository.GithubApiInterceptor;
 import jp.samples.github.repository.GithubApiService;
 import okhttp3.OkHttpClient;
@@ -49,6 +50,12 @@ public class AppModule {
     @Singleton
     public GithubApiService githubApiService(Retrofit retrofit) {
         return retrofit.create(GithubApiService.class);
+    }
+
+    @Provides
+    @Singleton
+    public RxEventBus rxEventBus() {
+        return new RxEventBus();
     }
 
 }
