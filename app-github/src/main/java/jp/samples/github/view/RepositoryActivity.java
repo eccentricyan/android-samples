@@ -12,13 +12,11 @@ import org.parceler.Parcels;
 
 import javax.inject.Inject;
 
-import dagger.Lazy;
 import jp.samples.github.App;
 import jp.samples.github.R;
 import jp.samples.github.databinding.RepositoryActivityBinding;
 import jp.samples.github.model.Repository;
 import jp.samples.github.repository.GithubApiService;
-import jp.samples.github.viewmodel.MainViewModel;
 import jp.samples.github.viewmodel.RepositoryViewModel;
 
 public class RepositoryActivity extends RxAppCompatActivity {
