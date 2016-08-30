@@ -1,5 +1,7 @@
 package jp.samples.github.event;
 
+import com.trello.rxlifecycle.LifecycleProvider;
+
 import rx.Scheduler;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -19,13 +21,18 @@ public class RxEventBus {
         subject.onNext(event);
     }
 
-    public <T> Subscription onEvent(Class<T> eventClass, Action1<T> action) {
-        return onEvent(eventClass, AndroidSchedulers.mainThread(), action);
+    public <T> Subscription subscribe(LifecycleProvider<?> lifecycleProvider,
+                                      Class<T> eventClass, Action1<T> action) {
+        return subscribe(lifecycleProvider, AndroidSchedulers.mainThread(), eventClass, action);
     }
 
-    public <T> Subscription onEvent(Class<T> eventClass, Scheduler scheduler, Action1<T> action) {
-        return subject.ofType(eventClass).observeOn(scheduler).subscribe(action);
+    public <T> Subscription subscribe(LifecycleProvider<?> lifecycleProvider, Scheduler scheduler,
+                                      Class<T> eventClass, Action1<T> action) {
+        return subject
+                .ofType(eventClass)
+                .compose(lifecycleProvider.bindToLifecycle())
+                .observeOn(scheduler)
+                .subscribe(action);
     }
-
 
 }

@@ -40,6 +40,9 @@ dependencies {
     compile dependencies.retrofitAdapterRxJava
     compile dependencies.picasso
     compile dependencies.rxAndroid
+    compile dependencies.rxLifecycle
+    compile dependencies.rxLifecycleAndroid
+    compile dependencies.rxLifecycleComponents
     compile dependencies.circleImageView
     apt dependencies.parceler
     compile dependencies.parcelerApi
@@ -52,7 +55,9 @@ dependencies {
     testCompile dependencies.robolectric
     androidTestCompile dependencies.supportTestRunner
     androidTestCompile dependencies.supportAnnotations
-    androidTestCompile dependencies.espresso
+    androidTestCompile (dependencies.espresso) {
+        exclude group: 'com.google.code.findbugs', module: 'jsr305'
+    }
     androidTestCompile dependencies.retrofitMock
     androidTestCompile dependencies.assertjAndroid
 

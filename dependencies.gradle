@@ -1,6 +1,7 @@
 ext {
     supportLibraryVersion = '24.2.0'
     retrofitVersion = '2.1.0'
+    rxLifecycle = '0.7.0'
 
     dependencies = [
             appCompat: "com.android.support:appcompat-v7:$supportLibraryVersion",
@@ -8,6 +9,10 @@ ext {
             recyclerView: "com.android.support:recyclerview-v7:$supportLibraryVersion",
 
             rxAndroid: 'io.reactivex:rxandroid:1.1.0',
+            rxLifecycle: "com.trello:rxlifecycle:$rxLifecycle",
+            rxLifecycleAndroid: "com.trello:rxlifecycle-android:$rxLifecycle",
+            rxLifecycleComponents: "com.trello:rxlifecycle-components:$rxLifecycle",
+            rxLifecycleNavi: "com.trello:rxlifecycle-navi:$rxLifecycle",
             retrofit: "com.squareup.retrofit2:retrofit:$retrofitVersion",
             retrofitConverterGson: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
             retrofitAdapterRxJava: "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion",

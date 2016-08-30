@@ -5,7 +5,8 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import org.parceler.Parcels;
 
@@ -13,20 +14,19 @@ import javax.inject.Inject;
 
 import dagger.Lazy;
 import jp.samples.github.App;
-import jp.samples.github.repository.GithubApiService;
 import jp.samples.github.R;
 import jp.samples.github.databinding.RepositoryActivityBinding;
 import jp.samples.github.model.Repository;
+import jp.samples.github.repository.GithubApiService;
+import jp.samples.github.viewmodel.MainViewModel;
 import jp.samples.github.viewmodel.RepositoryViewModel;
 
-public class RepositoryActivity extends AppCompatActivity {
+public class RepositoryActivity extends RxAppCompatActivity {
 
     private static final String EXTRA_REPOSITORY = "EXTRA_REPOSITORY";
 
     @Inject
-    Lazy<GithubApiService> githubService;
-
-    private RepositoryViewModel viewModel;
+    GithubApiService githubService;
 
     public static Intent newIntent(Context context, Repository repository) {
         Intent intent = new Intent(context, RepositoryActivity.class);
@@ -42,8 +42,7 @@ public class RepositoryActivity extends AppCompatActivity {
 
         RepositoryActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.repository_activity);
         Repository repository = Parcels.unwrap(getIntent().getParcelableExtra(EXTRA_REPOSITORY));
-        viewModel = new RepositoryViewModel(this, githubService.get(), repository);
-        binding.setViewModel(viewModel);
+        binding.setViewModel(new RepositoryViewModel(this, this, githubService, repository));
 
         setSupportActionBar(binding.toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -53,9 +52,4 @@ public class RepositoryActivity extends AppCompatActivity {
         setTitle(repository.name);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        viewModel.onPause();
-    }
 }

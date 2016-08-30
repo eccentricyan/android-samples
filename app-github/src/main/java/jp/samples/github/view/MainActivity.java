@@ -3,27 +3,30 @@ package jp.samples.github.view;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.inputmethod.InputMethodManager;
 
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+
 import javax.inject.Inject;
 
-import dagger.Lazy;
 import jp.samples.github.App;
-import jp.samples.github.repository.GithubApiService;
 import jp.samples.github.R;
 import jp.samples.github.databinding.MainActivityBinding;
+import jp.samples.github.event.RxEventBus;
+import jp.samples.github.repository.GithubApiService;
 import jp.samples.github.viewmodel.MainViewModel;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends RxAppCompatActivity {
 
     @Inject
-    Lazy<GithubApiService> githubService;
+    GithubApiService githubService;
+
+    @Inject
+    RxEventBus eventBus;
 
     private MainActivityBinding binding;
-    private MainViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,24 +34,20 @@ public class MainActivity extends AppCompatActivity {
 
         App.getAppComponent(this).inject(this);
 
+        eventBus.subscribe(this, MainViewModel.RepositoriesChangeEvent.class, this::subscribe);
+
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
-        MainViewModel.ViewModelListener viewModelListener = repositories -> {
-            MainAdapter adapter = (MainAdapter) binding.reposRecyclerView.getAdapter();
-            adapter.setRepositories(repositories);
-            adapter.notifyDataSetChanged();
-            hideSoftKeybord();
-        };
-        viewModel = new MainViewModel(this, githubService.get(), viewModelListener);
-        binding.setViewModel(viewModel);
+        binding.setViewModel(new MainViewModel(this, this, githubService, eventBus));
 
         setSupportActionBar(binding.toolbar);
         setupRecyclerView(binding.reposRecyclerView);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        viewModel.onPause();
+    private void subscribe(MainViewModel.RepositoriesChangeEvent event) {
+        MainAdapter adapter = (MainAdapter) binding.reposRecyclerView.getAdapter();
+        adapter.setRepositories(event.repositories);
+        adapter.notifyDataSetChanged();
+        hideSoftKeybord();
     }
 
     private void setupRecyclerView(RecyclerView recyclerView) {

@@ -8,9 +8,9 @@ import jp.samples.github.R;
 import jp.samples.github.model.Repository;
 import jp.samples.github.view.RepositoryActivity;
 
-public class MainItemViewModel extends BaseObservable implements ViewModel {
+public class MainItemViewModel extends BaseObservable {
 
-    private Context context;
+    private final Context context;
     private Repository repository;
 
     public MainItemViewModel(Context context, Repository repository) {
@@ -21,11 +21,6 @@ public class MainItemViewModel extends BaseObservable implements ViewModel {
     public void setRepository(Repository repository) {
         this.repository = repository;
         super.notifyChange();
-    }
-
-    @Override
-    public void onPause() {
-        // NOP
     }
 
     public void onItemClick(View view) {

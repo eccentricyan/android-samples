@@ -11,17 +11,20 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
+import com.trello.rxlifecycle.LifecycleProvider;
+import com.trello.rxlifecycle.android.ActivityEvent;
+
 import java.util.List;
 
 import jp.samples.github.R;
+import jp.samples.github.event.RxEventBus;
 import jp.samples.github.model.Repository;
 import jp.samples.github.repository.GithubApiService;
 import retrofit2.adapter.rxjava.HttpException;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class MainViewModel implements ViewModel {
+public class MainViewModel {
 
     private static final String TAG = MainViewModel.class.getSimpleName();
 
@@ -29,37 +32,41 @@ public class MainViewModel implements ViewModel {
         void onRepositoriesChanged(List<Repository> repositories);
     }
 
-    private Context context;
-    private GithubApiService githubService;
-    private ViewModelListener viewModelListener;
+    public class RepositoriesChangeEvent {
+        public final List<Repository> repositories;
+        public RepositoriesChangeEvent(List<Repository> repositories) {
+            this.repositories = repositories;
+        }
+    }
 
-    public ObservableInt searchButtonVisibility;
-    public ObservableInt progressVisibility;
-    public ObservableInt recyclerViewVisibility;
-    public ObservableInt infoMessageVisibility;
-    public ObservableField<String> infoMessage;
+    private final Context context;
+    private final LifecycleProvider<ActivityEvent> lifecycleProvider;
+    private final GithubApiService githubService;
+    private final RxEventBus eventBus;
+
+    public final ObservableInt searchButtonVisibility;
+    public final ObservableInt progressVisibility;
+    public final ObservableInt recyclerViewVisibility;
+    public final ObservableInt infoMessageVisibility;
+    public final ObservableField<String> infoMessage;
 
     private String editTextUsernameValue;
-    private Subscription subscription;
 
-    public MainViewModel(Context context, GithubApiService githubService, ViewModelListener viewModelListener) {
+    public MainViewModel(Context context,
+                         LifecycleProvider<ActivityEvent> lifecycleProvider,
+                         GithubApiService githubService,
+                         RxEventBus eventBus) {
 
         this.context = context;
+        this.lifecycleProvider = lifecycleProvider;
         this.githubService = githubService;
-        this.viewModelListener = viewModelListener;
+        this.eventBus = eventBus;
 
         this.searchButtonVisibility = new ObservableInt(View.GONE);
         this.progressVisibility = new ObservableInt(View.INVISIBLE);
         this.recyclerViewVisibility = new ObservableInt(View.INVISIBLE);
         this.infoMessageVisibility = new ObservableInt(View.VISIBLE);
         this.infoMessage = new ObservableField<>(context.getString(R.string.default_info_message));
-    }
-
-    @Override
-    public void onPause() {
-        if (subscription != null) {
-            subscription.unsubscribe();
-        }
     }
 
     public void onClickSearch(View view) {
@@ -99,19 +106,14 @@ public class MainViewModel implements ViewModel {
         recyclerViewVisibility.set(View.INVISIBLE);
         infoMessageVisibility.set(View.INVISIBLE);
 
-        if (subscription != null) {
-            subscription.unsubscribe();
-        }
-
-        subscription = githubService.publicRepositories(username)
+        githubService.publicRepositories(username)
+                .compose(lifecycleProvider.bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doAfterTerminate(() -> progressVisibility.set(View.INVISIBLE))
                 .subscribe(repositories -> {
                     Log.i(TAG, "Repose loaded " + repositories);
-                    if (viewModelListener != null) {
-                        viewModelListener.onRepositoriesChanged(repositories);
-                    }
+                    eventBus.post(new RepositoriesChangeEvent(repositories));
                     if (repositories.isEmpty()) {
                         infoMessage.set(context.getString(R.string.text_empty_repos));
                         infoMessageVisibility.set(View.VISIBLE);

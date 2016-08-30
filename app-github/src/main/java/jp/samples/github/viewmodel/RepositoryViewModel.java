@@ -9,15 +9,16 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.trello.rxlifecycle.LifecycleProvider;
+import com.trello.rxlifecycle.android.ActivityEvent;
 
-import jp.samples.github.repository.GithubApiService;
 import jp.samples.github.R;
 import jp.samples.github.model.Repository;
-import rx.Subscription;
+import jp.samples.github.repository.GithubApiService;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class RepositoryViewModel implements ViewModel {
+public class RepositoryViewModel {
 
     private static final String TAG = RepositoryViewModel.class.getSimpleName();
 
@@ -29,20 +30,24 @@ public class RepositoryViewModel implements ViewModel {
                 .into(view);
     }
 
-    private Context context;
-    private Repository repository;
-    private GithubApiService githubService;
+    private final Context context;
+    private final LifecycleProvider<ActivityEvent> lifecycleProvider;
+    private final GithubApiService githubService;
+    private final Repository repository;
 
-    private Subscription subscription;
-    public ObservableField<String> ownerName;
-    public ObservableField<String> ownerEmail;
-    public ObservableField<String> ownerLocation;
-    public ObservableInt ownerEmailVisibility;
-    public ObservableInt ownerLocationVisibility;
-    public ObservableInt ownerLayoutVisibility;
+    public final ObservableField<String> ownerName;
+    public final ObservableField<String> ownerEmail;
+    public final ObservableField<String> ownerLocation;
+    public final ObservableInt ownerEmailVisibility;
+    public final ObservableInt ownerLocationVisibility;
+    public final ObservableInt ownerLayoutVisibility;
 
-    public RepositoryViewModel(Context context, GithubApiService githubService, Repository repository) {
+    public RepositoryViewModel(Context context,
+                               LifecycleProvider<ActivityEvent> lifecycleProvider,
+                               GithubApiService githubService,
+                               Repository repository) {
         this.context = context;
+        this.lifecycleProvider = lifecycleProvider;
         this.githubService = githubService;
         this.repository = repository;
 
@@ -54,13 +59,6 @@ public class RepositoryViewModel implements ViewModel {
         this.ownerLocationVisibility = new ObservableInt(View.VISIBLE);
 
         loadFullUser(repository.owner.url);
-    }
-
-    @Override
-    public void onPause() {
-        if (subscription != null) {
-            subscription.unsubscribe();
-        }
     }
 
     public String getDescription() {
@@ -92,7 +90,8 @@ public class RepositoryViewModel implements ViewModel {
     }
 
     private void loadFullUser(String url) {
-        subscription = githubService.userFromUrl(url)
+        githubService.userFromUrl(url)
+                .compose(lifecycleProvider.bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(user -> {
