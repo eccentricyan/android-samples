@@ -8,5 +8,6 @@ GitHub APIを使用したMVVMのサンプルです。
 * Dagger2
 * Retrofit2
 * RxAndroid
+* RxLifecycle
 * Parceler
 * Espresso2
