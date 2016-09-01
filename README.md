@@ -11,3 +11,4 @@ GitHub APIを使用したMVVMのサンプルです。
 * RxLifecycle
 * Parceler
 * Espresso2
+* RetrofitMock
