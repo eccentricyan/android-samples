@@ -1,6 +1,5 @@
-package jp.samples.github.viewmodel;
+package jp.samples.github.view.main;
 
-import android.content.Context;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.text.Editable;
@@ -11,38 +10,17 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
-import com.trello.rxlifecycle.LifecycleProvider;
-import com.trello.rxlifecycle.android.ActivityEvent;
-
-import java.util.List;
-
 import jp.samples.github.R;
-import jp.samples.github.event.RxEventBus;
-import jp.samples.github.model.Repository;
-import jp.samples.github.repository.GithubApiService;
+import jp.samples.github.di.ActivityComponent;
+import jp.samples.github.event.RepositoriesChangeEvent;
+import jp.samples.github.view.ViewModel;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class MainViewModel {
+public class MainViewModel extends ViewModel {
 
     private static final String TAG = MainViewModel.class.getSimpleName();
-
-    public interface ViewModelListener {
-        void onRepositoriesChanged(List<Repository> repositories);
-    }
-
-    public class RepositoriesChangeEvent {
-        public final List<Repository> repositories;
-        public RepositoriesChangeEvent(List<Repository> repositories) {
-            this.repositories = repositories;
-        }
-    }
-
-    private final Context context;
-    private final LifecycleProvider<ActivityEvent> lifecycleProvider;
-    private final GithubApiService githubService;
-    private final RxEventBus eventBus;
 
     public final ObservableInt searchButtonVisibility;
     public final ObservableInt progressVisibility;
@@ -52,16 +30,8 @@ public class MainViewModel {
 
     private String editTextUsernameValue;
 
-    public MainViewModel(Context context,
-                         LifecycleProvider<ActivityEvent> lifecycleProvider,
-                         GithubApiService githubService,
-                         RxEventBus eventBus) {
-
-        this.context = context;
-        this.lifecycleProvider = lifecycleProvider;
-        this.githubService = githubService;
-        this.eventBus = eventBus;
-
+    public MainViewModel(ActivityComponent component) {
+        super(component);
         this.searchButtonVisibility = new ObservableInt(View.GONE);
         this.progressVisibility = new ObservableInt(View.INVISIBLE);
         this.recyclerViewVisibility = new ObservableInt(View.INVISIBLE);

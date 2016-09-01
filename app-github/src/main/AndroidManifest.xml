@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.MainActivity"
+            android:name=".view.main.MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,9 +23,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.RepositoryActivity"
+            android:name=".view.repository.RepositoryActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".view.MainActivity">
+            android:parentActivityName=".view.main.MainActivity">
         </activity>
     </application>
 

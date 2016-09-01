@@ -1,4 +1,4 @@
-package jp.samples.github.view;
+package jp.samples.github.view.main;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
@@ -9,15 +9,17 @@ import java.util.Collections;
 import java.util.List;
 
 import jp.samples.github.R;
+import jp.samples.github.api.model.Repository;
 import jp.samples.github.databinding.MainItemBinding;
-import jp.samples.github.model.Repository;
-import jp.samples.github.viewmodel.MainItemViewModel;
+import jp.samples.github.di.ActivityComponent;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
+    private ActivityComponent component;
     private List<Repository> repositories;
 
-    public MainAdapter() {
+    public MainAdapter(ActivityComponent component) {
+        this.component = component;
         this.repositories = Collections.emptyList();
     }
 
@@ -33,7 +35,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                 parent,
                 false
         );
-        return new ViewHolder(binding);
+        return new ViewHolder(binding, component);
     }
 
     @Override
@@ -48,14 +50,16 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         final MainItemBinding binding;
+        final ActivityComponent component;
 
-        public ViewHolder(MainItemBinding binding) {
+        public ViewHolder(MainItemBinding binding, ActivityComponent component) {
             super(binding.cardView);
             this.binding = binding;
+            this.component = component;
         }
         void bind(Repository repository) {
             if (binding.getViewModel() == null) {
-                binding.setViewModel(new MainItemViewModel(itemView.getContext(), repository));
+                binding.setViewModel(new MainItemViewModel(component, repository));
             } else {
                 binding.getViewModel().setRepository(repository);
             }

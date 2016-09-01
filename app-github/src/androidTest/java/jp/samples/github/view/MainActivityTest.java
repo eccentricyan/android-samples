@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import java.util.Collections;
 
 import jp.samples.github.R;
+import jp.samples.github.view.main.MainActivity;
 import okhttp3.MediaType;
 import okhttp3.ResponseBody;
 import retrofit2.Response;

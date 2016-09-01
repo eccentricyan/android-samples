@@ -4,29 +4,29 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 
-import jp.samples.github.di.AppComponent;
-import jp.samples.github.di.DaggerAppComponent;
+import jp.samples.github.di.ApplicationComponent;
+import jp.samples.github.di.ApplicationModule;
+import jp.samples.github.di.DaggerApplicationComponent;
 
 public class App extends Application {
 
-    private AppComponent component;
+    private ApplicationComponent component;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        component = DaggerAppComponent.create();
+        this.component = DaggerApplicationComponent
+                .builder()
+                .applicationModule(new ApplicationModule(this))
+                .build();
     }
 
-    public static App get(Context context) {
-        return (App) context.getApplicationContext();
-    }
-
-    public static AppComponent getAppComponent(Context context) {
-        return get(context).component;
+    public static ApplicationComponent getComponent(Context context) {
+        return ((App) context.getApplicationContext()).component;
     }
 
     @VisibleForTesting
-    public void setAppComponent(AppComponent appComponent) {
+    public void setComponent(ApplicationComponent appComponent) {
         this.component = appComponent;
     }
 

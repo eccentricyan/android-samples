@@ -1,9 +1,9 @@
-package jp.samples.github.repository;
+package jp.samples.github.api;
 
 import java.util.List;
 
-import jp.samples.github.model.Repository;
-import jp.samples.github.model.User;
+import jp.samples.github.api.model.Repository;
+import jp.samples.github.api.model.User;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Url;

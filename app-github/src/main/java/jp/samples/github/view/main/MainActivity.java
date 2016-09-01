@@ -1,4 +1,4 @@
-package jp.samples.github.view;
+package jp.samples.github.view.main;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -7,24 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.inputmethod.InputMethodManager;
 
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
-
-import javax.inject.Inject;
-
-import jp.samples.github.App;
 import jp.samples.github.R;
 import jp.samples.github.databinding.MainActivityBinding;
-import jp.samples.github.event.RxEventBus;
-import jp.samples.github.repository.GithubApiService;
-import jp.samples.github.viewmodel.MainViewModel;
+import jp.samples.github.event.RepositoriesChangeEvent;
+import jp.samples.github.view.ViewModelActivity;
 
-public class MainActivity extends RxAppCompatActivity {
-
-    @Inject
-    GithubApiService githubService;
-
-    @Inject
-    RxEventBus eventBus;
+public class MainActivity extends ViewModelActivity {
 
     private MainActivityBinding binding;
 
@@ -32,18 +20,16 @@ public class MainActivity extends RxAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        App.getAppComponent(this).inject(this);
-
-        eventBus.subscribe(this, MainViewModel.RepositoriesChangeEvent.class, this::subscribe);
+        eventBus.subscribe(this, RepositoriesChangeEvent.class, this::subscribe);
 
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
-        binding.setViewModel(new MainViewModel(this, this, githubService, eventBus));
+        binding.setViewModel(new MainViewModel(component));
 
         setSupportActionBar(binding.toolbar);
         setupRecyclerView(binding.reposRecyclerView);
     }
 
-    private void subscribe(MainViewModel.RepositoriesChangeEvent event) {
+    private void subscribe(RepositoriesChangeEvent event) {
         MainAdapter adapter = (MainAdapter) binding.reposRecyclerView.getAdapter();
         adapter.setRepositories(event.repositories);
         adapter.notifyDataSetChanged();
@@ -51,7 +37,7 @@ public class MainActivity extends RxAppCompatActivity {
     }
 
     private void setupRecyclerView(RecyclerView recyclerView) {
-        MainAdapter adapter = new MainAdapter();
+        MainAdapter adapter = new MainAdapter(component);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

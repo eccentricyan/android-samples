@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="jp.samples.github.viewmodel.MainItemViewModel" />
+            type="jp.samples.github.view.main.MainItemViewModel" />
     </data>
 
     <android.support.v7.widget.CardView

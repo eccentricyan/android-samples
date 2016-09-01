@@ -1,4 +1,4 @@
-package jp.samples.github.model;
+package jp.samples.github.api.model;
 
 import android.text.TextUtils;
 

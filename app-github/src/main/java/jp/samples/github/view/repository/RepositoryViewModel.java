@@ -1,6 +1,5 @@
-package jp.samples.github.viewmodel;
+package jp.samples.github.view.repository;
 
-import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
@@ -9,16 +8,15 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
-import com.trello.rxlifecycle.LifecycleProvider;
-import com.trello.rxlifecycle.android.ActivityEvent;
 
 import jp.samples.github.R;
-import jp.samples.github.model.Repository;
-import jp.samples.github.repository.GithubApiService;
+import jp.samples.github.api.model.Repository;
+import jp.samples.github.di.ActivityComponent;
+import jp.samples.github.view.ViewModel;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class RepositoryViewModel {
+public class RepositoryViewModel extends ViewModel {
 
     private static final String TAG = RepositoryViewModel.class.getSimpleName();
 
@@ -30,11 +28,7 @@ public class RepositoryViewModel {
                 .into(view);
     }
 
-    private final Context context;
-    private final LifecycleProvider<ActivityEvent> lifecycleProvider;
-    private final GithubApiService githubService;
     private final Repository repository;
-
     public final ObservableField<String> ownerName;
     public final ObservableField<String> ownerEmail;
     public final ObservableField<String> ownerLocation;
@@ -42,13 +36,9 @@ public class RepositoryViewModel {
     public final ObservableInt ownerLocationVisibility;
     public final ObservableInt ownerLayoutVisibility;
 
-    public RepositoryViewModel(Context context,
-                               LifecycleProvider<ActivityEvent> lifecycleProvider,
-                               GithubApiService githubService,
-                               Repository repository) {
-        this.context = context;
-        this.lifecycleProvider = lifecycleProvider;
-        this.githubService = githubService;
+    public RepositoryViewModel(ActivityComponent component, Repository repository) {
+        super(component);
+
         this.repository = repository;
 
         this.ownerName = new ObservableField<>();

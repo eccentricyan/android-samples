@@ -1,4 +1,4 @@
-package jp.samples.github.repository;
+package jp.samples.github.api;
 
 import android.util.Log;
 

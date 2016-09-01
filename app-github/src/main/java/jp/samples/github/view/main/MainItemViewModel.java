@@ -1,20 +1,19 @@
-package jp.samples.github.viewmodel;
+package jp.samples.github.view.main;
 
-import android.content.Context;
-import android.databinding.BaseObservable;
 import android.view.View;
 
 import jp.samples.github.R;
-import jp.samples.github.model.Repository;
-import jp.samples.github.view.RepositoryActivity;
+import jp.samples.github.api.model.Repository;
+import jp.samples.github.di.ActivityComponent;
+import jp.samples.github.view.ViewModel;
+import jp.samples.github.view.repository.RepositoryActivity;
 
-public class MainItemViewModel extends BaseObservable {
+public class MainItemViewModel extends ViewModel {
 
-    private final Context context;
     private Repository repository;
 
-    public MainItemViewModel(Context context, Repository repository) {
-        this.context = context;
+    public MainItemViewModel(ActivityComponent component, Repository repository) {
+        super(component);
         this.repository = repository;
     }
 

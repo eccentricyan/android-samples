@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="jp.samples.github.viewmodel.RepositoryViewModel"/>
+            type="jp.samples.github.view.repository.RepositoryViewModel"/>
     </data>
 
     <RelativeLayout

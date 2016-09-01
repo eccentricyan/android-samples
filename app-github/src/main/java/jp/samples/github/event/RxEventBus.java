@@ -21,18 +21,18 @@ public class RxEventBus {
         subject.onNext(event);
     }
 
-    public <T> Subscription subscribe(LifecycleProvider<?> lifecycleProvider,
+    public <T> void subscribe(LifecycleProvider<?> lifecycleProvider,
                                       Class<T> eventClass, Action1<T> action) {
-        return subscribe(lifecycleProvider, AndroidSchedulers.mainThread(), eventClass, action);
+        subscribe(lifecycleProvider, AndroidSchedulers.mainThread(), eventClass, action);
     }
 
-    public <T> Subscription subscribe(LifecycleProvider<?> lifecycleProvider, Scheduler scheduler,
+    public <T> void subscribe(LifecycleProvider<?> lifecycleProvider, Scheduler scheduler,
                                       Class<T> eventClass, Action1<T> action) {
-        return subject
-                .ofType(eventClass)
-                .compose(lifecycleProvider.bindToLifecycle())
-                .observeOn(scheduler)
-                .subscribe(action);
+        subject
+            .ofType(eventClass)
+            .compose(lifecycleProvider.bindToLifecycle())
+            .observeOn(scheduler)
+            .subscribe(action);
     }
 
 }

@@ -10,8 +10,8 @@ import org.junit.Before;
 import org.junit.Rule;
 
 import jp.samples.github.App;
-import jp.samples.github.di.AppComponent;
-import jp.samples.github.di.DaggerAppComponent;
+import jp.samples.github.di.ApplicationComponent;
+import jp.samples.github.di.DaggerApplicationComponent;
 import jp.samples.github.di.TestModule;
 import jp.samples.github.repository.TestGithubApiService;
 
@@ -33,11 +33,12 @@ public abstract class ActivityTest<T extends Activity> {
 
     private void setupComponent() {
         this.githubApiService = new TestGithubApiService();
-        AppComponent component = DaggerAppComponent
+        App app = getApplication();
+        ApplicationComponent component = DaggerApplicationComponent
                 .builder()
-                .appModule(new TestModule(githubApiService))
+                .applicationModule(new TestModule(app, githubApiService))
                 .build();
-        getApplication().setAppComponent(component);
+        app.setComponent(component);
     }
 
     protected void launchActivity() {
