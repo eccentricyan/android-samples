@@ -28,13 +28,13 @@ public class RepositoryViewModel extends ViewModel {
                 .into(view);
     }
 
-    private final Repository repository;
-    public final ObservableField<String> ownerName;
-    public final ObservableField<String> ownerEmail;
-    public final ObservableField<String> ownerLocation;
-    public final ObservableInt ownerEmailVisibility;
-    public final ObservableInt ownerLocationVisibility;
-    public final ObservableInt ownerLayoutVisibility;
+    public Repository repository;
+    public ObservableField<String> ownerName;
+    public ObservableField<String> ownerEmail;
+    public ObservableField<String> ownerLocation;
+    public ObservableInt ownerEmailVisibility;
+    public ObservableInt ownerLocationVisibility;
+    public ObservableInt ownerLayoutVisibility;
 
     public RepositoryViewModel(ActivityComponent component, Repository repository) {
         super(component);

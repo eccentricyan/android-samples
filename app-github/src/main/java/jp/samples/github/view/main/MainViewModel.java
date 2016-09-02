@@ -3,6 +3,7 @@ package jp.samples.github.view.main;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
+import icepick.State;
 import jp.samples.github.R;
 import jp.samples.github.di.ActivityComponent;
 import jp.samples.github.event.RepositoriesChangeEvent;
@@ -22,16 +24,22 @@ public class MainViewModel extends ViewModel {
 
     private static final String TAG = MainViewModel.class.getSimpleName();
 
-    public final ObservableInt searchButtonVisibility;
-    public final ObservableInt progressVisibility;
-    public final ObservableInt recyclerViewVisibility;
-    public final ObservableInt infoMessageVisibility;
-    public final ObservableField<String> infoMessage;
-
-    private String editTextUsernameValue;
+    @State
+    public String username;
+    @State
+    public ObservableInt searchButtonVisibility;
+    @State
+    public ObservableInt progressVisibility;
+    @State
+    public ObservableInt recyclerViewVisibility;
+    @State
+    public ObservableInt infoMessageVisibility;
+    @State
+    public ObservableField<String> infoMessage;
 
     public MainViewModel(ActivityComponent component) {
         super(component);
+        this.username = "";
         this.searchButtonVisibility = new ObservableInt(View.GONE);
         this.progressVisibility = new ObservableInt(View.INVISIBLE);
         this.recyclerViewVisibility = new ObservableInt(View.INVISIBLE);
@@ -40,13 +48,13 @@ public class MainViewModel extends ViewModel {
     }
 
     public void onClickSearch(View view) {
-        loadGithubRepos(editTextUsernameValue);
+        loadGithubRepos(username);
     }
 
-    public boolean onSearchAction(TextView view, int actionId, KeyEvent event) {
+    public boolean onUsernameEditorAction(TextView view, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             String username = view.getText().toString();
-            if (username.length() > 0) {
+            if (!TextUtils.isEmpty(username)) {
                 loadGithubRepos(username);
                 return true;
             }
@@ -54,14 +62,14 @@ public class MainViewModel extends ViewModel {
         return false;
     }
 
-    public TextWatcher getUsernameEditTextWatcher() {
+    public TextWatcher getUsernameChangedListener() {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                editTextUsernameValue = charSequence.toString();
+                username = charSequence.toString();
                 searchButtonVisibility.set(charSequence.length() > 0 ? View.VISIBLE : View.GONE);
             }
             @Override

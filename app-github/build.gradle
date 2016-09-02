@@ -35,19 +35,22 @@ dependencies {
     compile dependencies.appCompat
     compile dependencies.cardView
     compile dependencies.recyclerView
-    compile dependencies.retrofit
-    compile dependencies.retrofitConverterGson
-    compile dependencies.retrofitAdapterRxJava
-    compile dependencies.picasso
+
+    apt dependencies.daggerCompiler
+    compile dependencies.dagger
+    apt dependencies.parceler
+    compile dependencies.parcelerApi
+    compile dependencies.icepick
+    provided dependencies.icepickProcessor
     compile dependencies.rxAndroid
     compile dependencies.rxLifecycle
     compile dependencies.rxLifecycleAndroid
     compile dependencies.rxLifecycleComponents
+    compile dependencies.retrofit
+    compile dependencies.retrofitConverterGson
+    compile dependencies.retrofitAdapterRxJava
+    compile dependencies.picasso
     compile dependencies.circleImageView
-    apt dependencies.parceler
-    compile dependencies.parcelerApi
-    apt dependencies.daggerCompiler
-    compile dependencies.dagger
 
     testCompile dependencies.jUnit
     testCompile dependencies.hamcrest

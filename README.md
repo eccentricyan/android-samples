@@ -6,9 +6,10 @@ GitHub APIを使用したMVVMのサンプルです。
 ### Libraries used
 * Data Binding
 * Dagger2
-* Retrofit2
+* Parceler
+* Icepick
 * RxAndroid
 * RxLifecycle
-* Parceler
+* Retrofit2
 * Espresso2
 * RetrofitMock
