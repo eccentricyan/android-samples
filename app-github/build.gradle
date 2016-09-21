@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -36,9 +35,9 @@ dependencies {
     compile dependencies.cardView
     compile dependencies.recyclerView
 
-    apt dependencies.daggerCompiler
+    annotationProcessor dependencies.daggerCompiler
     compile dependencies.dagger
-    apt dependencies.parceler
+    annotationProcessor dependencies.parceler
     compile dependencies.parcelerApi
     compile dependencies.icepick
     provided dependencies.icepickProcessor
