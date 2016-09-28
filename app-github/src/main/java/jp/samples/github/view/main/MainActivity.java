@@ -42,6 +42,7 @@ public class MainActivity extends ViewModelActivity {
         eventBus.subscribe(this, RepositoriesChangeEvent.class, this::subscribe);
 
         setSupportActionBar(binding.toolbar);
+
         setupRecyclerView(binding.reposRecyclerView);
     }
 
