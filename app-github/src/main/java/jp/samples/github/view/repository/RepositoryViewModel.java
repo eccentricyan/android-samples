@@ -36,7 +36,7 @@ public class RepositoryViewModel extends ViewModel {
     public ObservableInt ownerLocationVisibility;
     public ObservableInt ownerLayoutVisibility;
 
-    public RepositoryViewModel(ActivityComponent component, Repository repository) {
+    RepositoryViewModel(ActivityComponent component, Repository repository) {
         super(component);
 
         this.repository = repository;

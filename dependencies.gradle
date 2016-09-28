@@ -25,6 +25,7 @@ ext {
             retrofit: "com.squareup.retrofit2:retrofit:$retrofitVersion",
             retrofitConverterGson: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
             retrofitAdapterRxJava: "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion",
+            eventBus: "org.greenrobot:eventbus:3.0.0",
             picasso: 'com.squareup.picasso:picasso:2.5.2',
             circleImageView: 'de.hdodenhof:circleimageview:1.3.0',
 

@@ -13,17 +13,17 @@ import jp.samples.github.api.model.Repository;
 import jp.samples.github.databinding.MainItemBinding;
 import jp.samples.github.di.ActivityComponent;
 
-public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
+class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
     private ActivityComponent component;
     private List<Repository> repositories;
 
-    public MainAdapter(ActivityComponent component) {
+    MainAdapter(ActivityComponent component) {
         this.component = component;
         this.repositories = Collections.emptyList();
     }
 
-    public void setRepositories(List<Repository> repositories) {
+    void setRepositories(List<Repository> repositories) {
         this.repositories = repositories;
     }
 

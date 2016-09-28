@@ -14,7 +14,6 @@ import android.widget.TextView;
 import icepick.State;
 import jp.samples.github.R;
 import jp.samples.github.di.ActivityComponent;
-import jp.samples.github.event.RepositoriesChangeEvent;
 import jp.samples.github.view.ViewModel;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.android.schedulers.AndroidSchedulers;

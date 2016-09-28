@@ -1,4 +1,4 @@
-package jp.samples.github.event;
+package jp.samples.github.view.main;
 
 import java.util.List;
 

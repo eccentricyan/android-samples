@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.inputmethod.InputMethodManager;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.List;
 
 import icepick.Icepick;
@@ -15,7 +17,6 @@ import jp.samples.github.R;
 import jp.samples.github.api.model.Repository;
 import jp.samples.github.bundler.ListBundler;
 import jp.samples.github.databinding.MainActivityBinding;
-import jp.samples.github.event.RepositoriesChangeEvent;
 import jp.samples.github.view.ViewModelActivity;
 
 public class MainActivity extends ViewModelActivity {
@@ -32,18 +33,23 @@ public class MainActivity extends ViewModelActivity {
         super.onCreate(savedInstanceState);
 
         Icepick.restoreInstanceState(this, savedInstanceState);
-
         viewModel = new MainViewModel(component);
         Icepick.restoreInstanceState(viewModel, savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
         binding.setViewModel(viewModel);
 
-        eventBus.subscribe(this, RepositoriesChangeEvent.class, this::subscribe);
-
-        setSupportActionBar(binding.toolbar);
+        eventBus.register(this);
 
         setupRecyclerView(binding.reposRecyclerView);
+
+        setSupportActionBar(binding.toolbar);
+    }
+
+    @Override
+    protected void onDestroy() {
+        eventBus.unregister(this);
+        super.onDestroy();
     }
 
     @Override
@@ -51,6 +57,14 @@ public class MainActivity extends ViewModelActivity {
         super.onSaveInstanceState(outState);
         Icepick.saveInstanceState(this, outState);
         Icepick.saveInstanceState(viewModel, outState);
+    }
+
+    @Subscribe
+    public void subscribe(RepositoriesChangeEvent event) {
+        this.repositories = event.repositories;
+        MainAdapter adapter = (MainAdapter) binding.reposRecyclerView.getAdapter();
+        setupAdapterRepositories(adapter);
+        hideSoftKeybord();
     }
 
     private void setupRecyclerView(RecyclerView recyclerView) {
@@ -65,13 +79,6 @@ public class MainActivity extends ViewModelActivity {
             adapter.setRepositories(repositories);
             adapter.notifyDataSetChanged();
         }
-    }
-
-    private void subscribe(RepositoriesChangeEvent event) {
-        this.repositories = event.repositories;
-        MainAdapter adapter = (MainAdapter) binding.reposRecyclerView.getAdapter();
-        setupAdapterRepositories(adapter);
-        hideSoftKeybord();
     }
 
     private void hideSoftKeybord() {

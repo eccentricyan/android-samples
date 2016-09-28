@@ -5,19 +5,20 @@ import android.support.annotation.CallSuper;
 
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Inject;
 
 import jp.samples.github.App;
 import jp.samples.github.di.ActivityComponent;
 import jp.samples.github.di.ActivityModule;
-import jp.samples.github.event.RxEventBus;
 
 public class ViewModelActivity extends RxAppCompatActivity {
 
     protected ActivityComponent component;
 
     @Inject
-    protected RxEventBus eventBus;
+    protected EventBus eventBus;
 
     @CallSuper
     @Override

@@ -12,7 +12,7 @@ public class MainItemViewModel extends ViewModel {
 
     private Repository repository;
 
-    public MainItemViewModel(ActivityComponent component, Repository repository) {
+    MainItemViewModel(ActivityComponent component, Repository repository) {
         super(component);
         this.repository = repository;
     }

@@ -48,6 +48,7 @@ dependencies {
     compile dependencies.retrofit
     compile dependencies.retrofitConverterGson
     compile dependencies.retrofitAdapterRxJava
+    compile dependencies.eventBus
     compile dependencies.picasso
     compile dependencies.circleImageView
 

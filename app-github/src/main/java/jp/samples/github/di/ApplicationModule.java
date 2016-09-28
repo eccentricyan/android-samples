@@ -5,6 +5,8 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.concurrent.TimeUnit;
 
 import dagger.Module;
@@ -12,7 +14,6 @@ import dagger.Provides;
 import jp.samples.github.App;
 import jp.samples.github.api.GithubApiInterceptor;
 import jp.samples.github.api.GithubApiService;
-import jp.samples.github.event.RxEventBus;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -35,8 +36,8 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationScope
-    public RxEventBus rxEventBus() {
-        return new RxEventBus();
+    public EventBus eventBus() {
+        return EventBus.getDefault();
     }
 
     @Provides
