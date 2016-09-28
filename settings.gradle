@@ -1,1 +1,1 @@
-include ':app-github', ':livedoor-reader-api'
+include ':app-github'

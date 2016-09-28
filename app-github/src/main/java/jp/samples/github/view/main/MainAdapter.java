@@ -48,12 +48,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         return repositories.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         final MainItemBinding binding;
         final ActivityComponent component;
 
-        public ViewHolder(MainItemBinding binding, ActivityComponent component) {
-            super(binding.cardView);
+        ViewHolder(MainItemBinding binding, ActivityComponent component) {
+            super(binding.getRoot());
             this.binding = binding;
             this.component = component;
         }
