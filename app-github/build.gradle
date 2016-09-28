@@ -46,7 +46,7 @@ dependencies {
     compile dependencies.rxLifecycleAndroid
     compile dependencies.rxLifecycleComponents
     compile dependencies.retrofit
-    compile dependencies.retrofitConverterGson
+    compile dependencies.retrofitConverterMoshi
     compile dependencies.retrofitAdapterRxJava
     compile dependencies.eventBus
     compile dependencies.picasso

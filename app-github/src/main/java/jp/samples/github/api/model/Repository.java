@@ -2,7 +2,7 @@ package jp.samples.github.api.model;
 
 import android.text.TextUtils;
 
-import com.google.gson.annotations.SerializedName;
+import com.squareup.moshi.Json;
 
 import org.parceler.Parcel;
 
@@ -14,7 +14,7 @@ public class Repository {
     public String description;
     public int forks;
     public int watchers;
-    @SerializedName("stargazers_count")
+    @Json(name = "stargazers_count")
     public int stars;
     public String language;
     public String homepage;

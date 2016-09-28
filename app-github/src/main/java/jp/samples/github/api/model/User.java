@@ -2,7 +2,7 @@ package jp.samples.github.api.model;
 
 import android.text.TextUtils;
 
-import com.google.gson.annotations.SerializedName;
+import com.squareup.moshi.Json;
 
 import org.parceler.Parcel;
 
@@ -15,7 +15,7 @@ public class User {
     public String email;
     public String login;
     public String location;
-    @SerializedName("avatar_url")
+    @Json(name = "avatar_url")
     public String avatarUrl;
 
     public User() {

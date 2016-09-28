@@ -23,7 +23,7 @@ ext {
             rxLifecycleComponents: "com.trello:rxlifecycle-components:$rxLifecycleVersion",
             rxLifecycleNavi: "com.trello:rxlifecycle-navi:$rxLifecycleVersion",
             retrofit: "com.squareup.retrofit2:retrofit:$retrofitVersion",
-            retrofitConverterGson: "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            retrofitConverterMoshi: "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
             retrofitAdapterRxJava: "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion",
             eventBus: "org.greenrobot:eventbus:3.0.0",
             picasso: 'com.squareup.picasso:picasso:2.5.2',

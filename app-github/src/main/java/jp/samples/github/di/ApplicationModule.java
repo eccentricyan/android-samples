@@ -2,9 +2,6 @@ package jp.samples.github.di;
 
 import android.content.Context;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.concurrent.TimeUnit;
@@ -17,7 +14,7 @@ import jp.samples.github.api.GithubApiService;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.moshi.MoshiConverterFactory;
 
 @Module
 public class ApplicationModule {
@@ -52,17 +49,11 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationScope
-    public Gson gsonBuilder() {
-        return new GsonBuilder().create();
-    }
-
-    @Provides
-    @ApplicationScope
-    public Retrofit githubRetrofit(OkHttpClient okHttpClient, Gson gson) {
+    public Retrofit githubRetrofit(OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .baseUrl("https://api.github.com/")
                 .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(MoshiConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
     }
