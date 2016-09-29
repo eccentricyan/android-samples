@@ -12,11 +12,11 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import icepick.State;
-import sample.mvvm.R;
-import sample.mvvm.di.ActivityComponent;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import sample.mvvm.R;
+import sample.mvvm.di.ActivityComponent;
 import sample.mvvm.event.RepositoriesChangeEvent;
 
 public class ListViewModel extends ViewModel {

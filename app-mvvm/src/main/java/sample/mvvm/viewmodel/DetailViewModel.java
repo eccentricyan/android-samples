@@ -9,11 +9,11 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import sample.github.model.Repository;
 import sample.mvvm.R;
 import sample.mvvm.di.ActivityComponent;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class DetailViewModel extends ViewModel {
 
