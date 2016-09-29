@@ -1,4 +1,4 @@
-package sample.mvvm.api;
+package sample.github;
 
 import android.util.Log;
 

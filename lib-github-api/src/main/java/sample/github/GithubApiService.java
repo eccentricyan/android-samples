@@ -1,13 +1,13 @@
-package sample.mvvm.api;
+package sample.github;
 
 import java.util.List;
 
-import sample.mvvm.api.model.Repository;
-import sample.mvvm.api.model.User;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Url;
 import rx.Observable;
+import sample.github.model.Repository;
+import sample.github.model.User;
 
 public interface GithubApiService {
 

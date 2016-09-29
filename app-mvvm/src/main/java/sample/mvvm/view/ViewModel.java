@@ -10,7 +10,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
-import sample.mvvm.api.GithubApiService;
+import sample.github.GithubApiService;
 import sample.mvvm.di.ActivityComponent;
 
 public class ViewModel extends BaseObservable {

@@ -13,8 +13,8 @@ import java.util.List;
 
 import icepick.Icepick;
 import icepick.State;
+import sample.github.model.Repository;
 import sample.mvvm.R;
-import sample.mvvm.api.model.Repository;
 import sample.mvvm.bundler.ListBundler;
 import sample.mvvm.databinding.ListActivityBinding;
 import sample.mvvm.view.ViewModelActivity;

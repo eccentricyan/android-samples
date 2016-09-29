@@ -1,4 +1,4 @@
-package sample.mvvm.api.model;
+package sample.github.model;
 
 import android.text.TextUtils;
 

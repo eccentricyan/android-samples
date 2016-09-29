@@ -22,9 +22,6 @@
 -keepattributes Exceptions
 -keepattributes *Annotation*
 
-### Moshi ==========================================================================================
--keep class sample.mvvm.model.** { *; }
-
 ### OkHttp =========================================================================================
 -keep class okhttp3.** { *; }
 -keep interface okhttp3.** { *; }

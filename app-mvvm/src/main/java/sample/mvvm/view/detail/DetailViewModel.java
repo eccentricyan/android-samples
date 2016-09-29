@@ -9,8 +9,8 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import sample.github.model.Repository;
 import sample.mvvm.R;
-import sample.mvvm.api.model.Repository;
 import sample.mvvm.di.ActivityComponent;
 import sample.mvvm.view.ViewModel;
 import rx.android.schedulers.AndroidSchedulers;

@@ -52,6 +52,8 @@ dependencies {
     compile dependencies.picasso
     compile dependencies.circleImageView
 
+    compile project(':lib-github-api')
+
     testCompile dependencies.jUnit
     testCompile dependencies.hamcrest
     testCompile dependencies.mockito
@@ -63,5 +65,4 @@ dependencies {
     }
     androidTestCompile dependencies.retrofitMock
     androidTestCompile dependencies.assertjAndroid
-
 }

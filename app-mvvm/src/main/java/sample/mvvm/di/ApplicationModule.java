@@ -8,9 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 import dagger.Module;
 import dagger.Provides;
+import sample.github.GithubApiInterceptor;
+import sample.github.GithubApiService;
 import sample.mvvm.App;
-import sample.mvvm.api.GithubApiInterceptor;
-import sample.mvvm.api.GithubApiService;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;

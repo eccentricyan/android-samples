@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import java.util.Collections;
 import java.util.List;
 
+import sample.github.model.Repository;
 import sample.mvvm.R;
-import sample.mvvm.api.model.Repository;
 import sample.mvvm.databinding.ListItemBinding;
 import sample.mvvm.di.ActivityComponent;
 

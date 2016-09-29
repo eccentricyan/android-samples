@@ -2,8 +2,8 @@ package sample.mvvm.view.list;
 
 import android.view.View;
 
+import sample.github.model.Repository;
 import sample.mvvm.R;
-import sample.mvvm.api.model.Repository;
 import sample.mvvm.di.ActivityComponent;
 import sample.mvvm.view.ViewModel;
 import sample.mvvm.view.detail.DetailActivity;

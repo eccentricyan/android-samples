@@ -8,8 +8,8 @@ import android.support.v7.app.ActionBar;
 
 import org.parceler.Parcels;
 
+import sample.github.model.Repository;
 import sample.mvvm.R;
-import sample.mvvm.api.model.Repository;
 import sample.mvvm.databinding.DetailActivityBinding;
 import sample.mvvm.view.ViewModelActivity;
 

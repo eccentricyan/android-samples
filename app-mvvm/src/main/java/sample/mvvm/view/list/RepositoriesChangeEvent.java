@@ -2,7 +2,7 @@ package sample.mvvm.view.list;
 
 import java.util.List;
 
-import sample.mvvm.api.model.Repository;
+import sample.github.model.Repository;
 
 public class RepositoriesChangeEvent {
     public final List<Repository> repositories;
