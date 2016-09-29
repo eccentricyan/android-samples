@@ -64,7 +64,7 @@
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:textColor="@color/white"
-                android:theme="@style/LightEditText"
+                android:theme="@style/EditText"
                 android:text="@{viewModel.username}"
                 android:onEditorAction="@{viewModel.onUsernameEditorAction}"
                 app:addTextChangedListener="@{viewModel.usernameChangedListener}" />
