@@ -37,7 +37,7 @@ public class ListActivityTest extends ActivityTest<ListActivity> {
     public void 初期表示() throws Exception {
         onView(withId(R.id.button_search)).check(matches(not(isDisplayed())));
         onView(withId(R.id.progress)).check(matches(not(isDisplayed())));
-        onView(withId(R.id.repos_recycler_view)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.recycler_view_repos)).check(matches(not(isDisplayed())));
         onView(withId(R.id.text_info)).check(matches(isDisplayed()));
         onView(withText(R.string.text_info)).check(matches(isDisplayed()));
     }
@@ -55,7 +55,7 @@ public class ListActivityTest extends ActivityTest<ListActivity> {
     public void 検索_結果あり() throws Exception {
         onView(withId(R.id.edit_text_username)).perform(typeText("username"));
         onView(withId(R.id.button_search)).perform(click());
-        onView(withId(R.id.repos_recycler_view)).check(matches(isDisplayed()));
+        onView(withId(R.id.recycler_view_repos)).check(matches(isDisplayed()));
         onView(withId(R.id.text_info)).check(matches(not(isDisplayed())));
     }
 
@@ -65,7 +65,7 @@ public class ListActivityTest extends ActivityTest<ListActivity> {
 
         onView(withId(R.id.edit_text_username)).perform(typeText("username"));
         onView(withId(R.id.button_search)).perform(click());
-        onView(withId(R.id.repos_recycler_view)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.recycler_view_repos)).check(matches(not(isDisplayed())));
         onView(withId(R.id.text_info)).check(matches(isDisplayed()));
 
         onView(withText(R.string.text_empty_repos)).check(matches(isDisplayed()));
@@ -78,7 +78,7 @@ public class ListActivityTest extends ActivityTest<ListActivity> {
 
         onView(withId(R.id.edit_text_username)).perform(typeText("username"));
         onView(withId(R.id.button_search)).perform(click());
-        onView(withId(R.id.repos_recycler_view)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.recycler_view_repos)).check(matches(not(isDisplayed())));
         onView(withId(R.id.text_info)).check(matches(isDisplayed()));
 
         onView(withText(R.string.error_username_not_found)).check(matches(isDisplayed()));
@@ -91,7 +91,7 @@ public class ListActivityTest extends ActivityTest<ListActivity> {
 
         onView(withId(R.id.edit_text_username)).perform(typeText("username"));
         onView(withId(R.id.button_search)).perform(click());
-        onView(withId(R.id.repos_recycler_view)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.recycler_view_repos)).check(matches(not(isDisplayed())));
         onView(withId(R.id.text_info)).check(matches(isDisplayed()));
 
         onView(withText(R.string.error_loading)).check(matches(isDisplayed()));
