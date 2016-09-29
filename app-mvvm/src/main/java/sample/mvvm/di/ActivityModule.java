@@ -1,5 +1,7 @@
 package sample.mvvm.di;
 
+import android.content.Context;
+
 import com.trello.rxlifecycle.LifecycleProvider;
 import com.trello.rxlifecycle.android.ActivityEvent;
 
@@ -14,6 +16,12 @@ public class ActivityModule {
 
     public ActivityModule(ViewModelActivity activity) {
         this.activity = activity;
+    }
+
+    @Provides
+    @ActivityScope
+    public Context activityContext() {
+        return this.activity;
     }
 
     @Provides

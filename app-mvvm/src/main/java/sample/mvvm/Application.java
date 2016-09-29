@@ -1,6 +1,5 @@
 package sample.mvvm;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
 
@@ -8,7 +7,7 @@ import sample.mvvm.di.ApplicationComponent;
 import sample.mvvm.di.ApplicationModule;
 import sample.mvvm.di.DaggerApplicationComponent;
 
-public class App extends Application {
+public class Application extends android.app.Application {
 
     private ApplicationComponent component;
 
@@ -17,12 +16,12 @@ public class App extends Application {
         super.onCreate();
         this.component = DaggerApplicationComponent
                 .builder()
-                .applicationModule(new ApplicationModule(this))
+                .applicationModule(new ApplicationModule())
                 .build();
     }
 
     public static ApplicationComponent getComponent(Context context) {
-        return ((App) context.getApplicationContext()).component;
+        return ((Application) context.getApplicationContext()).component;
     }
 
     @VisibleForTesting

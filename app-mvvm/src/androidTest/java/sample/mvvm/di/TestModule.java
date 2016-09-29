@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 import dagger.Module;
 import retrofit2.mock.BehaviorDelegate;
 import sample.github.GithubApiService;
-import sample.mvvm.App;
+import sample.mvvm.Application;
 import sample.mvvm.repository.TestGithubApiService;
 import retrofit2.Retrofit;
 import retrofit2.mock.MockRetrofit;
@@ -16,8 +16,7 @@ public class TestModule extends ApplicationModule {
 
     protected TestGithubApiService githubApiService;
 
-    public TestModule(App app, TestGithubApiService githubApiService) {
-        super(app);
+    public TestModule(TestGithubApiService githubApiService) {
         this.githubApiService = githubApiService;
     }
 

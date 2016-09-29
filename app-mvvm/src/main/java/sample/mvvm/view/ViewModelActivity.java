@@ -9,7 +9,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
-import sample.mvvm.App;
+import sample.mvvm.Application;
 import sample.mvvm.di.ActivityComponent;
 import sample.mvvm.di.ActivityModule;
 
@@ -24,7 +24,7 @@ public class ViewModelActivity extends RxAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.component = App.getComponent(this).newActivityComponent(new ActivityModule(this));
+        this.component = Application.getComponent(this).activityComponent(new ActivityModule(this));
         this.component.inject(this);
     }
 

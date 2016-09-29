@@ -1,35 +1,20 @@
 package sample.mvvm.di;
 
-import android.content.Context;
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.concurrent.TimeUnit;
 
 import dagger.Module;
 import dagger.Provides;
-import sample.github.GithubApiInterceptor;
-import sample.github.GithubApiService;
-import sample.mvvm.App;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
+import sample.github.GithubApiInterceptor;
+import sample.github.GithubApiService;
 
 @Module
 public class ApplicationModule {
-
-    private Context context;
-
-    public ApplicationModule(App app) {
-        this.context = app.getApplicationContext();
-    }
-
-    @Provides
-    @ApplicationScope
-    public Context context() {
-        return this.context;
-    }
 
     @Provides
     @ApplicationScope

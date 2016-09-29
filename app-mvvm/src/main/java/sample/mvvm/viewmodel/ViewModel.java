@@ -19,13 +19,13 @@ public class ViewModel extends BaseObservable {
     protected Context context;
 
     @Inject
+    protected LifecycleProvider<ActivityEvent> lifecycleProvider;
+
+    @Inject
     protected GithubApiService githubService;
 
     @Inject
     protected EventBus eventBus;
-
-    @Inject
-    protected LifecycleProvider<ActivityEvent> lifecycleProvider;
 
     public ViewModel(ActivityComponent component) {
         component.inject(this);

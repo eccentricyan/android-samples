@@ -9,7 +9,7 @@ import android.support.test.rule.ActivityTestRule;
 import org.junit.Before;
 import org.junit.Rule;
 
-import sample.mvvm.App;
+import sample.mvvm.Application;
 import sample.mvvm.di.ApplicationComponent;
 import sample.mvvm.di.DaggerApplicationComponent;
 import sample.mvvm.di.TestModule;
@@ -33,10 +33,10 @@ public abstract class ActivityTest<T extends Activity> {
 
     private void setupComponent() {
         this.githubApiService = new TestGithubApiService();
-        App app = getApplication();
+        Application app = getApplication();
         ApplicationComponent component = DaggerApplicationComponent
                 .builder()
-                .applicationModule(new TestModule(app, githubApiService))
+                .applicationModule(new TestModule(githubApiService))
                 .build();
         app.setComponent(component);
     }
@@ -45,9 +45,9 @@ public abstract class ActivityTest<T extends Activity> {
         activityTestRule.launchActivity(new Intent());
     }
 
-    protected App getApplication() {
+    protected Application getApplication() {
         Instrumentation instrumentation = InstrumentationRegistry.getInstrumentation();
-        return (App) instrumentation.getTargetContext().getApplicationContext();
+        return (Application) instrumentation.getTargetContext().getApplicationContext();
     }
 
 }
