@@ -1,7 +1,7 @@
 # android-samples
 Android sample apps.
 
-## app-github
+## app-mvvm
 GitHub APIを使用したMVVMのサンプルです。
 ### Libraries used
 * Data Binding
@@ -11,5 +11,6 @@ GitHub APIを使用したMVVMのサンプルです。
 * RxAndroid
 * RxLifecycle
 * Retrofit2
+* EventBus
 * Espresso2
 * RetrofitMock
