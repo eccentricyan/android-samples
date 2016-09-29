@@ -60,7 +60,7 @@
                 android:layout_toStartOf="@+id/button_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_username"
+                android:hint="@string/text_username"
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:textColor="@color/white"
@@ -92,10 +92,10 @@
             android:textColor="@color/secondary_text"
             android:textSize="18sp"
             android:text="@{viewModel.infoMessage}"
-            app:visibility="@{viewModel.infoMessageVisibility}" />
+            app:visibility="@{viewModel.infoTextVisibility}" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/repos_recycler_view"
+            android:id="@+id/recycler_view_repos"
             android:layout_below="@id/layout_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

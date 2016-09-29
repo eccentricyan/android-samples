@@ -27,7 +27,7 @@
             android:onClick="@{viewModel.onItemClick}">
 
             <TextView
-                android:id="@+id/text_repo_title"
+                android:id="@+id/text_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -40,7 +40,7 @@
                 tools:text="Reository_name" />
 
             <TextView
-                android:id="@+id/text_repo_description"
+                android:id="@+id/text_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"

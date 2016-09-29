@@ -39,7 +39,7 @@ public class ListActivityTest extends ActivityTest<ListActivity> {
         onView(withId(R.id.progress)).check(matches(not(isDisplayed())));
         onView(withId(R.id.repos_recycler_view)).check(matches(not(isDisplayed())));
         onView(withId(R.id.text_info)).check(matches(isDisplayed()));
-        onView(withText(R.string.default_info_message)).check(matches(isDisplayed()));
+        onView(withText(R.string.text_info)).check(matches(isDisplayed()));
     }
 
     @Test
@@ -94,7 +94,7 @@ public class ListActivityTest extends ActivityTest<ListActivity> {
         onView(withId(R.id.repos_recycler_view)).check(matches(not(isDisplayed())));
         onView(withId(R.id.text_info)).check(matches(isDisplayed()));
 
-        onView(withText(R.string.error_loading_repos)).check(matches(isDisplayed()));
+        onView(withText(R.string.error_loading)).check(matches(isDisplayed()));
     }
 
 }

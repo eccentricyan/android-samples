@@ -42,7 +42,7 @@ public class ListActivity extends ViewModelActivity {
 
         eventBus.register(this);
 
-        setupRecyclerView(binding.reposRecyclerView);
+        setupRecyclerView(binding.recyclerViewRepos);
 
         setSupportActionBar(binding.toolbar);
     }
@@ -63,7 +63,7 @@ public class ListActivity extends ViewModelActivity {
     @Subscribe
     public void subscribe(RepositoriesChangeEvent event) {
         this.repositories = event.repositories;
-        ListAdapter adapter = (ListAdapter) binding.reposRecyclerView.getAdapter();
+        ListAdapter adapter = (ListAdapter) binding.recyclerViewRepos.getAdapter();
         setupAdapterRepositories(adapter);
         hideSoftKeybord();
     }

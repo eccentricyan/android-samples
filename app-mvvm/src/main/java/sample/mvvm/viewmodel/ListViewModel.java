@@ -32,7 +32,7 @@ public class ListViewModel extends ViewModel {
     @State
     public ObservableInt recyclerViewVisibility;
     @State
-    public ObservableInt infoMessageVisibility;
+    public ObservableInt infoTextVisibility;
     @State
     public ObservableField<String> infoMessage;
 
@@ -42,8 +42,8 @@ public class ListViewModel extends ViewModel {
         this.searchButtonVisibility = new ObservableInt(View.GONE);
         this.progressVisibility = new ObservableInt(View.INVISIBLE);
         this.recyclerViewVisibility = new ObservableInt(View.INVISIBLE);
-        this.infoMessageVisibility = new ObservableInt(View.VISIBLE);
-        this.infoMessage = new ObservableField<>(context.getString(R.string.default_info_message));
+        this.infoTextVisibility = new ObservableInt(View.VISIBLE);
+        this.infoMessage = new ObservableField<>(context.getString(R.string.text_info));
     }
 
     public void onClickSearch(View view) {
@@ -81,7 +81,7 @@ public class ListViewModel extends ViewModel {
     private void loadGithubRepos(String username) {
         progressVisibility.set(View.VISIBLE);
         recyclerViewVisibility.set(View.INVISIBLE);
-        infoMessageVisibility.set(View.INVISIBLE);
+        infoTextVisibility.set(View.INVISIBLE);
 
         githubService.publicRepositories(username)
                 .compose(lifecycleProvider.bindToLifecycle())
@@ -93,7 +93,7 @@ public class ListViewModel extends ViewModel {
                     eventBus.post(new RepositoriesChangeEvent(repositories));
                     if (repositories.isEmpty()) {
                         infoMessage.set(context.getString(R.string.text_empty_repos));
-                        infoMessageVisibility.set(View.VISIBLE);
+                        infoTextVisibility.set(View.VISIBLE);
                     } else {
                         recyclerViewVisibility.set(View.VISIBLE);
                     }
@@ -102,9 +102,9 @@ public class ListViewModel extends ViewModel {
                     if (e instanceof HttpException && ((HttpException) e).code() == 404) {
                         infoMessage.set(context.getString(R.string.error_username_not_found));
                     } else {
-                        infoMessage.set(context.getString(R.string.error_loading_repos));
+                        infoMessage.set(context.getString(R.string.error_loading));
                     }
-                    infoMessageVisibility.set(View.VISIBLE);
+                    infoTextVisibility.set(View.VISIBLE);
                 });
     }
 
