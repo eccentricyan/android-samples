@@ -1,4 +1,4 @@
-package sample.mvvm.view.list;
+package sample.mvvm.view;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +12,7 @@ import sample.github.model.Repository;
 import sample.mvvm.R;
 import sample.mvvm.databinding.ListItemBinding;
 import sample.mvvm.di.ActivityComponent;
+import sample.mvvm.viewmodel.ListItemViewModel;
 
 class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 

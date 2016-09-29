@@ -1,4 +1,4 @@
-package sample.mvvm.view.list;
+package sample.mvvm.view;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -17,7 +17,8 @@ import sample.github.model.Repository;
 import sample.mvvm.R;
 import sample.mvvm.bundler.ListBundler;
 import sample.mvvm.databinding.ListActivityBinding;
-import sample.mvvm.view.ViewModelActivity;
+import sample.mvvm.event.RepositoriesChangeEvent;
+import sample.mvvm.viewmodel.ListViewModel;
 
 public class ListActivity extends ViewModelActivity {
 

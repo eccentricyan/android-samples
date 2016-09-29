@@ -1,18 +1,17 @@
-package sample.mvvm.view.list;
+package sample.mvvm.viewmodel;
 
 import android.view.View;
 
 import sample.github.model.Repository;
 import sample.mvvm.R;
 import sample.mvvm.di.ActivityComponent;
-import sample.mvvm.view.ViewModel;
-import sample.mvvm.view.detail.DetailActivity;
+import sample.mvvm.view.DetailActivity;
 
 public class ListItemViewModel extends ViewModel {
 
     private Repository repository;
 
-    ListItemViewModel(ActivityComponent component, Repository repository) {
+    public ListItemViewModel(ActivityComponent component, Repository repository) {
         super(component);
         this.repository = repository;
     }

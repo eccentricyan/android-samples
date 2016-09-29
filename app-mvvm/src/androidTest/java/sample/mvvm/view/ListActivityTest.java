@@ -13,7 +13,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Response;
 import retrofit2.mock.Calls;
 import sample.mvvm.R;
-import sample.mvvm.view.list.ListActivity;
 
 import static android.support.test.espresso.Espresso.*;
 import static android.support.test.espresso.assertion.ViewAssertions.*;

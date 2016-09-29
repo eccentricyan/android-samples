@@ -1,4 +1,4 @@
-package sample.mvvm.view.detail;
+package sample.mvvm.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import org.parceler.Parcels;
 import sample.github.model.Repository;
 import sample.mvvm.R;
 import sample.mvvm.databinding.DetailActivityBinding;
-import sample.mvvm.view.ViewModelActivity;
+import sample.mvvm.viewmodel.DetailViewModel;
 
 public class DetailActivity extends ViewModelActivity {
 

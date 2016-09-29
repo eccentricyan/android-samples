@@ -2,7 +2,7 @@ package sample.mvvm.di;
 
 import dagger.Subcomponent;
 import sample.mvvm.view.ViewModelActivity;
-import sample.mvvm.view.ViewModel;
+import sample.mvvm.viewmodel.ViewModel;
 
 @ActivityScope
 @Subcomponent(modules = ActivityModule.class)

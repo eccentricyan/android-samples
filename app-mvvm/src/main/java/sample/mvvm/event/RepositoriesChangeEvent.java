@@ -1,4 +1,4 @@
-package sample.mvvm.view.list;
+package sample.mvvm.event;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package sample.mvvm.view.detail;
+package sample.mvvm.viewmodel;
 
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
@@ -12,7 +12,6 @@ import com.squareup.picasso.Picasso;
 import sample.github.model.Repository;
 import sample.mvvm.R;
 import sample.mvvm.di.ActivityComponent;
-import sample.mvvm.view.ViewModel;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -36,7 +35,7 @@ public class DetailViewModel extends ViewModel {
     public ObservableInt ownerLocationVisibility;
     public ObservableInt ownerLayoutVisibility;
 
-    DetailViewModel(ActivityComponent component, Repository repository) {
+    public DetailViewModel(ActivityComponent component, Repository repository) {
         super(component);
 
         this.repository = repository;

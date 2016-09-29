@@ -1,4 +1,4 @@
-package sample.mvvm.view.list;
+package sample.mvvm.viewmodel;
 
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
@@ -14,10 +14,10 @@ import android.widget.TextView;
 import icepick.State;
 import sample.mvvm.R;
 import sample.mvvm.di.ActivityComponent;
-import sample.mvvm.view.ViewModel;
 import retrofit2.adapter.rxjava.HttpException;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import sample.mvvm.event.RepositoriesChangeEvent;
 
 public class ListViewModel extends ViewModel {
 
