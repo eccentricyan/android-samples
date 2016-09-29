@@ -1,5 +1,6 @@
 package sample.github;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.IOException;
@@ -15,9 +16,13 @@ public class GithubApiInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-
         Request request = chain.request();
-        Response response = chain.proceed(request);
+        Request.Builder reqBuilder = request.newBuilder();
+        if (!TextUtils.isEmpty(BuildConfig.GITHUB_API_AUTH_TOKEN)) {
+            reqBuilder.addHeader("Authorization", "token " + BuildConfig.GITHUB_API_AUTH_TOKEN);
+        }
+
+        Response response = chain.proceed(reqBuilder.build());
 
         String json = response.body().string();
         Log.d(TAG, String.format("JSON response is: %s", json));

@@ -17,7 +17,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "GITHUB_API_AUTH_TOKEN", "\"${project.property("githubApiAuthToken")}\""
+        }
         release {
+            buildConfigField "String", "GITHUB_API_AUTH_TOKEN", "\"${project.property("githubApiAuthToken")}\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
