@@ -3,11 +3,11 @@ package sample.mvvm.di;
 import java.util.concurrent.TimeUnit;
 
 import dagger.Module;
+import retrofit2.mock.BehaviorDelegate;
+import sample.github.GithubApiService;
 import sample.mvvm.App;
-import sample.mvvm.api.GithubApiService;
 import sample.mvvm.repository.TestGithubApiService;
 import retrofit2.Retrofit;
-import retrofit2.mock.BehaviorDelegate;
 import retrofit2.mock.MockRetrofit;
 import retrofit2.mock.NetworkBehavior;
 

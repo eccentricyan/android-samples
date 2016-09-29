@@ -3,15 +3,15 @@ package sample.mvvm.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import sample.mvvm.api.GithubApiService;
-import sample.mvvm.api.model.Repository;
-import sample.mvvm.api.model.User;
 import retrofit2.Call;
 import retrofit2.http.Path;
 import retrofit2.http.Url;
 import retrofit2.mock.BehaviorDelegate;
 import retrofit2.mock.Calls;
 import rx.Observable;
+import sample.github.GithubApiService;
+import sample.github.model.Repository;
+import sample.github.model.User;
 
 public class TestGithubApiService implements GithubApiService {
 
