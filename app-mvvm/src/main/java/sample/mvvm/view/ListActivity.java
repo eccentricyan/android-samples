@@ -33,9 +33,9 @@ public class ListActivity extends ViewModelActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Icepick.restoreInstanceState(this, savedInstanceState);
         viewModel = new ListViewModel(component);
         Icepick.restoreInstanceState(viewModel, savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.list_activity);
         binding.setViewModel(viewModel);
