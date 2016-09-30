@@ -37,18 +37,21 @@ dependencies {
 
     annotationProcessor dependencies.daggerCompiler
     compile dependencies.dagger
-    annotationProcessor dependencies.parceler
-    compile dependencies.parcelerApi
-    compile dependencies.icepick
-    provided dependencies.icepickProcessor
+    compile dependencies.eventBus
+
+    compile dependencies.retrofit
+    compile dependencies.retrofitConverterMoshi
+    compile dependencies.retrofitAdapterRxJava
     compile dependencies.rxAndroid
     compile dependencies.rxLifecycle
     compile dependencies.rxLifecycleAndroid
     compile dependencies.rxLifecycleComponents
-    compile dependencies.retrofit
-    compile dependencies.retrofitConverterMoshi
-    compile dependencies.retrofitAdapterRxJava
-    compile dependencies.eventBus
+
+    annotationProcessor dependencies.parceler
+    compile dependencies.parcelerApi
+    compile dependencies.icepick
+    provided dependencies.icepickProcessor
+
     compile dependencies.picasso
     compile dependencies.circleImageView
 
