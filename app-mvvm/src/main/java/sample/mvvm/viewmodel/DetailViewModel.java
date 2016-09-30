@@ -27,18 +27,33 @@ public class DetailViewModel extends ViewModel {
                 .into(view);
     }
 
-    public Repository repository;
-    public ObservableField<String> ownerName;
-    public ObservableField<String> ownerEmail;
-    public ObservableField<String> ownerLocation;
-    public ObservableInt ownerEmailVisibility;
-    public ObservableInt ownerLocationVisibility;
-    public ObservableInt ownerLayoutVisibility;
+    public final Repository repository;
+    public final String description;
+    public final String homepage;
+    public final int homepageVisibility;
+    public final String language;
+    public final int languageVisibility;
+    public final int forkVisibility;
+    public final String ownerAvatarUrl;
+    public final ObservableField<String> ownerName;
+    public final ObservableField<String> ownerEmail;
+    public final ObservableField<String> ownerLocation;
+    public final ObservableInt ownerEmailVisibility;
+    public final ObservableInt ownerLocationVisibility;
+    public final ObservableInt ownerLayoutVisibility;
 
     public DetailViewModel(ActivityComponent component, Repository repository) {
         super(component);
 
         this.repository = repository;
+
+        this.description = repository.description;
+        this.homepage = repository.homepage;
+        this.homepageVisibility = repository.hasHomepage() ? View.VISIBLE : View.GONE;
+        this.language = context.getString(R.string.text_language, repository.language);
+        this.languageVisibility = repository.hasLanguage() ? View.VISIBLE : View.GONE;
+        this.forkVisibility = repository.isFork() ? View.VISIBLE : View.GONE;
+        this.ownerAvatarUrl = repository.owner.avatarUrl;
 
         this.ownerName = new ObservableField<>();
         this.ownerEmail = new ObservableField<>();
@@ -48,34 +63,6 @@ public class DetailViewModel extends ViewModel {
         this.ownerLocationVisibility = new ObservableInt(View.VISIBLE);
 
         loadFullUser(repository.owner.url);
-    }
-
-    public String getDescription() {
-        return repository.description;
-    }
-
-    public String getHomepage() {
-        return repository.homepage;
-    }
-
-    public int getHomepageVisibility() {
-        return repository.hasHomepage() ? View.VISIBLE : View.GONE;
-    }
-
-    public String getLanguage() {
-        return context.getString(R.string.text_language, repository.language);
-    }
-
-    public int getLanguageVisibility() {
-        return repository.hasLanguage() ? View.VISIBLE : View.GONE;
-    }
-
-    public int getForkVisibility() {
-        return repository.isFork() ? View.VISIBLE : View.GONE;
-    }
-
-    public String getOwnerAvatarUrl() {
-        return repository.owner.avatarUrl;
     }
 
     private void loadFullUser(String url) {
