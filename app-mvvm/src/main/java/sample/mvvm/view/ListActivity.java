@@ -20,7 +20,7 @@ import sample.mvvm.databinding.ListActivityBinding;
 import sample.mvvm.event.RepositoriesChangeEvent;
 import sample.mvvm.viewmodel.ListViewModel;
 
-public class ListActivity extends ViewModelActivity {
+public class ListActivity extends BaseActivity {
 
     ListActivityBinding binding;
 

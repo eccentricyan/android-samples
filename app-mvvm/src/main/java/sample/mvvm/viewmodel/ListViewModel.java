@@ -19,7 +19,7 @@ import sample.mvvm.R;
 import sample.mvvm.di.ActivityComponent;
 import sample.mvvm.event.RepositoriesChangeEvent;
 
-public class ListViewModel extends ViewModel {
+public class ListViewModel extends BaseViewModel {
 
     private static final String TAG = ListViewModel.class.getSimpleName();
 
@@ -85,8 +85,8 @@ public class ListViewModel extends ViewModel {
 
         githubService.publicRepositories(username)
                 .compose(lifecycleProvider.bindToLifecycle())
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(subscribeScheduler)
                 .doAfterTerminate(() -> progressVisibility.set(View.INVISIBLE))
                 .subscribe(repositories -> {
                     Log.i(TAG, "Repose loaded " + repositories);

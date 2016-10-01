@@ -7,14 +7,14 @@ import com.trello.rxlifecycle.android.ActivityEvent;
 
 import dagger.Module;
 import dagger.Provides;
-import sample.mvvm.view.ViewModelActivity;
+import sample.mvvm.view.BaseActivity;
 
 @Module
 public class ActivityModule {
 
-    private ViewModelActivity activity;
+    private BaseActivity activity;
 
-    public ActivityModule(ViewModelActivity activity) {
+    public ActivityModule(BaseActivity activity) {
         this.activity = activity;
     }
 

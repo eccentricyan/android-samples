@@ -4,6 +4,8 @@ import java.util.concurrent.TimeUnit;
 
 import dagger.Module;
 import retrofit2.mock.BehaviorDelegate;
+import rx.Scheduler;
+import rx.schedulers.Schedulers;
 import sample.github.GithubApiService;
 import sample.mvvm.Application;
 import sample.mvvm.repository.TestGithubApiService;
@@ -35,6 +37,11 @@ public class TestModule extends ApplicationModule {
         githubApiService.setDelegate(delegate);
 
         return githubApiService;
+    }
+
+    @Override
+    public Scheduler subscribeScheduler() {
+        return Schedulers.immediate();
     }
 
 }

@@ -1,15 +1,15 @@
 package sample.mvvm.di;
 
 import dagger.Subcomponent;
-import sample.mvvm.view.ViewModelActivity;
-import sample.mvvm.viewmodel.ViewModel;
+import sample.mvvm.view.BaseActivity;
+import sample.mvvm.viewmodel.BaseViewModel;
 
 @ActivityScope
 @Subcomponent(modules = ActivityModule.class)
 public interface ActivityComponent {
 
-    void inject(ViewModelActivity viewModelActivity);
+    void inject(BaseActivity viewModelActivity);
 
-    void inject(ViewModel viewModel);
+    void inject(BaseViewModel viewModel);
 
 }

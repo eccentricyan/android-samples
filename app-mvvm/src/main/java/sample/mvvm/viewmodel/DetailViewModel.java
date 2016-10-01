@@ -15,7 +15,7 @@ import sample.github.model.Repository;
 import sample.mvvm.R;
 import sample.mvvm.di.ActivityComponent;
 
-public class DetailViewModel extends ViewModel {
+public class DetailViewModel extends BaseViewModel {
 
     private static final String TAG = DetailViewModel.class.getSimpleName();
 
@@ -68,8 +68,8 @@ public class DetailViewModel extends ViewModel {
     private void loadFullUser(String url) {
         githubService.userFromUrl(url)
                 .compose(lifecycleProvider.bindToLifecycle())
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(subscribeScheduler)
                 .subscribe(user -> {
                     Log.i(TAG, "Full user data loaded " + user);
                     ownerName.set(user.name);

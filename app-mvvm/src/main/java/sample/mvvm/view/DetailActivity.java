@@ -13,7 +13,7 @@ import sample.mvvm.R;
 import sample.mvvm.databinding.DetailActivityBinding;
 import sample.mvvm.viewmodel.DetailViewModel;
 
-public class DetailActivity extends ViewModelActivity {
+public class DetailActivity extends BaseActivity {
 
     private static final String EXTRA_REPOSITORY = "EXTRA_REPOSITORY";
 

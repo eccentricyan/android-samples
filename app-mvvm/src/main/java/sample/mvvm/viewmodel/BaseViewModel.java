@@ -10,24 +10,24 @@ import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
+import rx.Scheduler;
 import sample.github.GithubApiService;
 import sample.mvvm.di.ActivityComponent;
 
-public class ViewModel extends BaseObservable {
+public class BaseViewModel extends BaseObservable {
 
     @Inject
     protected Context context;
-
     @Inject
     protected LifecycleProvider<ActivityEvent> lifecycleProvider;
-
     @Inject
     protected GithubApiService githubService;
-
     @Inject
     protected EventBus eventBus;
+    @Inject
+    protected Scheduler subscribeScheduler;
 
-    public ViewModel(ActivityComponent component) {
+    public BaseViewModel(ActivityComponent component) {
         component.inject(this);
     }
 

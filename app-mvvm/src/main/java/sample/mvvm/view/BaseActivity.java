@@ -13,7 +13,7 @@ import sample.mvvm.Application;
 import sample.mvvm.di.ActivityComponent;
 import sample.mvvm.di.ActivityModule;
 
-public class ViewModelActivity extends RxAppCompatActivity {
+public class BaseActivity extends RxAppCompatActivity {
 
     protected ActivityComponent component;
 

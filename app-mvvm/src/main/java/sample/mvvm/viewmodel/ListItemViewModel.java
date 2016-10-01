@@ -8,7 +8,7 @@ import sample.mvvm.R;
 import sample.mvvm.di.ActivityComponent;
 import sample.mvvm.view.DetailActivity;
 
-public class ListItemViewModel extends ViewModel {
+public class ListItemViewModel extends BaseViewModel {
 
     private Repository repository;
 
