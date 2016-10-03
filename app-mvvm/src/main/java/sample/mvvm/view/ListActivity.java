@@ -61,7 +61,7 @@ public class ListActivity extends BaseActivity {
     }
 
     @Subscribe
-    public void subscribe(RepositoriesChangeEvent event) {
+    public void onChangeRepositories(RepositoriesChangeEvent event) {
         this.repositories = event.repositories;
         ListAdapter adapter = (ListAdapter) binding.recyclerViewRepos.getAdapter();
         setupAdapterRepositories(adapter);
