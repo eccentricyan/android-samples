@@ -8,10 +8,10 @@ import java.util.List;
 
 import icepick.Bundler;
 
-public class ListBundler implements Bundler<List<?>> {
+public class ParcelBundler implements Bundler<Object> {
 
     @Override
-    public void put(String key, List<?> value, Bundle bundle) {
+    public void put(String key, Object value, Bundle bundle) {
         bundle.putParcelable(key, Parcels.wrap(value));
     }
 

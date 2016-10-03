@@ -15,7 +15,7 @@ import icepick.Icepick;
 import icepick.State;
 import sample.github.model.Repository;
 import sample.mvvm.R;
-import sample.mvvm.bundler.ListBundler;
+import sample.mvvm.bundler.ParcelBundler;
 import sample.mvvm.databinding.ListActivityBinding;
 import sample.mvvm.event.RepositoriesChangeEvent;
 import sample.mvvm.viewmodel.ListViewModel;
@@ -26,7 +26,7 @@ public class ListActivity extends BaseActivity {
 
     ListViewModel viewModel;
 
-    @State(ListBundler.class)
+    @State(ParcelBundler.class)
     List<Repository> repositories;
 
     @Override
