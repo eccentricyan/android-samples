@@ -2,7 +2,7 @@
 Android sample apps.
 
 ## app-mvvm
-GitHub APIを使用したMVVMのサンプルです。
+Sample of MVVM using GitHub API
 ### Libraries used
 * Data Binding
 * Dagger2
